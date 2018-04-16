@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "851280112156",
+    "firebase_url": "https://fixthefault.firebaseio.com",
+    "project_id": "fixthefault",
+    "storage_bucket": "fixthefault.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:851280112156:android:c578a84ba269169b",
+        "android_client_info": {
+          "package_name": "com.example.power.fixthefault"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "851280112156-o688b45tij097elp44u9bihu5fc29bs8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7bTfRscP6MQHb2Zw0XNeb3_uLjXqM5Q8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
