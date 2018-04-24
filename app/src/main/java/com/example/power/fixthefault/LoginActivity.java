@@ -118,7 +118,7 @@ public class LoginActivity extends AppCompatActivity  {
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                         Usuario usuario= (Usuario)dataSnapshot.getValue(Usuario.class);
                         sesion.setUser(usuario);
-                        Intent intentNueva=new Intent(getApplicationContext(), MainActivity.class);
+                        Intent intentNueva=new Intent(getApplicationContext(), Main2Activity.class);
                         startActivity(intentNueva);
                        // Log.i("Objeto","usuario="+sesion.getUser().getNombre());
                     }

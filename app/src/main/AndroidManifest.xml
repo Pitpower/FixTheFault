@@ -26,8 +26,12 @@
             android:label="@string/title_activity_averias_extended_activity" />
         <activity android:name=".Averias_nueva_activity" />
         <activity
-        android:name=".MainActivity"
-            android:label="MainActivity"></activity>
-   </application>
+            android:name=".MainActivity"
+            android:label="MainActivity" />
+        <activity
+            android:name=".Main2Activity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+    </application>
 
 </manifest>
