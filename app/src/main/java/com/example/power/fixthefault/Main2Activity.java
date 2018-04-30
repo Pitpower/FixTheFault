@@ -15,6 +15,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import Logic.Session;
+import Persistence.Persistencia;
 
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,BlankFragment.OnFragmentInteractionListener {
@@ -23,6 +27,8 @@ FragmentManager fragmentManager;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        Persistencia persistencia =Persistencia.getInstance();
+        persistencia.creaAuthparaUsers(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         fragmentManager=getSupportFragmentManager();
@@ -43,6 +49,9 @@ FragmentManager fragmentManager;
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        TextView nombreUsuario=navigationView.getHeaderView(0).findViewById(R.id.topMenu_nombreUsuario);
+        Session sesion=Session.getInstance();
+        nombreUsuario.setText(sesion.getUser().getNombre());
     }
 
     @Override
@@ -89,11 +98,11 @@ FragmentManager fragmentManager;
 
         if (id == R.id.nav_camera) {
             fragmentManager.beginTransaction().replace(R.id.contenedor,new BlankFragment()).commit();
-        } else if (id == R.id.nav_gallery) {
-
+        } else if (id == R.id.nav_usuarios) {
+            fragmentManager.beginTransaction().replace(R.id.contenedor,new UsersFragment()).commit();
         } else if (id == R.id.nav_slideshow) {
 
-        } else if (id == R.id.nav_manage) {
+
 
         } else if (id == R.id.nav_share) {
 

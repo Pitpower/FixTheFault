@@ -50,7 +50,7 @@ Persistencia persistencia;
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         etiquetaLugar=(TextView)getActivity().findViewById(R.id.textview_fragment_lugar);
         etiquetaDescripcion=(TextView)getActivity().findViewById(R.id.textview_fragment_descripcion);
-        editableLugar=(EditText)getActivity().findViewById(R.id.editText_fragment_Lugar);
+        editableLugar=(EditText)getActivity().findViewById(R.id.editText_fragment_nombre);
         editableDescripcion=(EditText)getActivity().findViewById(R.id.editText_fragment_Descripcion);
         btnguardar=(Button)getActivity().findViewById(R.id.btn_fragment_guardar);
         btneliminar=(Button)getActivity().findViewById(R.id.btn_fragment_eliminar);
