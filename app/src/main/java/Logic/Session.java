@@ -3,6 +3,7 @@ package Logic;
 public class Session {
     private static final Session session = new Session();
     private Usuario user;
+
     public static Session getInstance() {
         return session;
     }

@@ -15,28 +15,28 @@ import com.google.firebase.database.FirebaseDatabase;
 import Logic.Averia;
 
 public class Averias_extended_activity extends AppCompatActivity {
-String key;
-Averia averia;
-TextView etiquetaDescripcion,etiquetaLugar;
-EditText editableLugar,editableDescripcion;
-Button btnguardar;
+    String key;
+    Averia averia;
+    TextView etiquetaDescripcion,etiquetaLugar;
+    EditText editableLugar,editableDescripcion;
+    Button btnguardar;
 
-@Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_averias_extended);
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    final DatabaseReference myRef = database.getReference("averias");
-        etiquetaLugar=(TextView)findViewById(R.id.textview_lugar);
-        etiquetaDescripcion=(TextView)findViewById(R.id.textview_descripcion);
-        editableLugar=(EditText)findViewById(R.id.editTextLugar);
-        editableDescripcion=(EditText)findViewById(R.id.editTextDescripcion);
-        btnguardar=(Button)findViewById(R.id.btn_guardar);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference myRef = database.getReference("averias");
+        etiquetaLugar = (TextView)findViewById(R.id.textview_lugar);
+        etiquetaDescripcion = (TextView)findViewById(R.id.textview_descripcion);
+        editableLugar = (EditText)findViewById(R.id.editTextLugar);
+        editableDescripcion = (EditText)findViewById(R.id.editTextDescripcion);
+        btnguardar = (Button)findViewById(R.id.btn_guardar);
 
         etiquetaLugar.setText("Lugar");
         etiquetaDescripcion.setText("Descripcion");
-        Intent intent =getIntent();
-        averia=(Averia)intent.getSerializableExtra("averia");
+        Intent intent = getIntent();
+        averia = (Averia)intent.getSerializableExtra("averia");
         key=intent.getStringExtra("key");
 
         editableLugar.setText(averia.getUbicacion());
@@ -56,9 +56,9 @@ Button btnguardar;
     }
 
     public Averia getAveria(){
-    averia.setUbicacion(editableLugar.getText().toString());
-    averia.setDescripcion(editableDescripcion.getText().toString());
-    return averia;
+        averia.setUbicacion(editableLugar.getText().toString());
+        averia.setDescripcion(editableDescripcion.getText().toString());
+        return averia;
     }
 
 }

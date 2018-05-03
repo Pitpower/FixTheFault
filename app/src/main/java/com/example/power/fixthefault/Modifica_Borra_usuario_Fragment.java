@@ -20,16 +20,16 @@ import Persistence.Persistencia;
 
 
 public class Modifica_Borra_usuario_Fragment extends Fragment {
-String key;
-String lugar;
-String descripcion;
-EditText editableNombre,editablePassword;
-TextView email;
-Button btnguardar;
-Button btneliminar;
-Persistencia persistencia;
-Spinner spinner;
-Usuario usuario;
+    String key;
+    String lugar;
+    String descripcion;
+    EditText editableNombre,editablePassword;
+    TextView email;
+    Button btnguardar;
+    Button btneliminar;
+    Persistencia persistencia;
+    Spinner spinner;
+    Usuario usuario;
 
 
     public Modifica_Borra_usuario_Fragment() {
@@ -46,19 +46,19 @@ Usuario usuario;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        persistencia=Persistencia.getInstance();
-        usuario=persistencia.getUsuario();
-        editableNombre=(EditText)getActivity().findViewById(R.id.editText_fragment_nombre);
-        editablePassword=(EditText)getActivity().findViewById(R.id.editText_fragment_password);
-        btnguardar=(Button)getActivity().findViewById(R.id.btn_fragment_guardar);
-        btneliminar=(Button)getActivity().findViewById(R.id.btn_fragment_eliminar);
-        email=(TextView)getActivity().findViewById(R.id.textview_email);
-        spinner=(Spinner)getActivity().findViewById(R.id.spinner_rol);
+        persistencia = Persistencia.getInstance();
+        usuario = persistencia.getUsuario();
+        editableNombre = (EditText)getActivity().findViewById(R.id.editText_fragment_nombre);
+        editablePassword = (EditText)getActivity().findViewById(R.id.editText_fragment_password);
+        btnguardar = (Button)getActivity().findViewById(R.id.btn_fragment_guardar);
+        btneliminar = (Button)getActivity().findViewById(R.id.btn_fragment_eliminar);
+        email = (TextView)getActivity().findViewById(R.id.textview_email);
+        spinner = (Spinner)getActivity().findViewById(R.id.spinner_rol);
 
         editableNombre.setText(usuario.getNombre());
         editablePassword.setText(usuario.getPassword());
         email.setText(usuario.getEmail());
-        String[] roles={"Admin","tecnico","normal"};
+        String[] roles = {"Admin","tecnico","normal"};
         spinner.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, roles));
         String myString = usuario.getRol(); //the value you want the position for
         ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter(); //cast to an ArrayAdapter
@@ -68,8 +68,6 @@ Usuario usuario;
         btnguardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 usuario.setNombre(editableNombre.getText().toString());
                 usuario.setPassword(editablePassword.getText().toString());
                 usuario.setRol((String) spinner.getSelectedItem());
@@ -81,7 +79,7 @@ Usuario usuario;
             }
         });
 
-    btneliminar.setOnClickListener(new View.OnClickListener() {
+        btneliminar.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             getFragmentManager().popBackStack();
@@ -89,9 +87,6 @@ Usuario usuario;
     });
 
     }
-
-
-
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name

@@ -30,94 +30,94 @@ import Persistence.Persistencia;
 
 
 public class UsersFragment extends Fragment implements AdapterUsers.OnItemClickListener {
-        Persistencia persistencia;
-        Button btnNueva;
-        RecyclerView rv;
-        List<Usuario> usuarios;
-        List<String> usuariosKeys;
-        AdapterUsers adapter;
-        DatabaseReference myRef;
-        // TODO: Rename and change types of parameters
-        FragmentManager fragmentManager;
 
-public UsersFragment() {
-        // Required empty public constructor
-        }
-@Override
-public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    Persistencia persistencia;
+    Button btnNueva;
+    RecyclerView rv;
+    List<Usuario> usuarios;
+    List<String> usuariosKeys;
+    AdapterUsers adapter;
+    DatabaseReference myRef;
+    // TODO: Rename and change types of parameters
+    FragmentManager fragmentManager;
 
+    public UsersFragment() {
+            // Required empty public constructor
+    }
 
-
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("usuarios");
-        persistencia=Persistencia.getInstance();
+        persistencia = Persistencia.getInstance();
 
-        btnNueva=(Button)getView().findViewById(R.id.btn_nueva_users);
+        btnNueva = (Button)getView().findViewById(R.id.btn_nueva_users);
         rv = (RecyclerView) getView().findViewById(R.id.reciclerUsers);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         usuarios = new ArrayList<>();
-        usuariosKeys=new ArrayList<>();
+        usuariosKeys = new ArrayList<>();
 
         adapter = new AdapterUsers(usuarios);
         rv.setAdapter(adapter);
         adapter.setOnItemClickListener(UsersFragment.this);
 
         myRef.addValueEventListener(new ValueEventListener() {
-@Override
-public void onDataChange(DataSnapshot dataSnapshot) {
-        usuarios.removeAll(usuarios);
-        usuariosKeys.removeAll(usuariosKeys);
-        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-        Usuario usuario = snapshot.getValue(Usuario.class);
-        String key=snapshot.getKey();
-        usuarios.add(usuario);
-        usuariosKeys.add(key);
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                usuarios.removeAll(usuarios);
+                usuariosKeys.removeAll(usuariosKeys);
 
-        }
-        adapter.notifyDataSetChanged();
-        }
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-@Override
-public void onCancelled(DatabaseError databaseError) {
+                    Usuario usuario = snapshot.getValue(Usuario.class);
+                    String key = snapshot.getKey();
+                    usuarios.add(usuario);
+                    usuariosKeys.add(key);
 
-        }
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
         });
+
         btnNueva.setOnClickListener(new View.OnClickListener() {
 @Override
 public void onClick(View v) {
-        fragmentManager=getActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.contenedor,new RegistrarUsuario_fragment()).addToBackStack("usersfragment").commit();
+
+            fragmentManager=getActivity().getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.contenedor,new RegistrarUsuario_fragment()).addToBackStack("usersfragment").commit();
         }
         });
-        }
+    }
 
 
-@Override
-public View onCreateView(LayoutInflater inflater, ViewGroup container,
-        Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
-
-
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+            // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_users, container, false);
 
+    }
 
-        }
-
-public interface OnFragmentInteractionListener {
-    // TODO: Update argument type and name
-    public void onFragmentInteraction(Uri uri);
-}
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        public void onFragmentInteraction(Uri uri);
+    }
 
    @Override
     public void onItemClick(int position) {
+
         Usuario usuario=usuarios.get(position);
         String key=usuariosKeys.get(position);
-       persistencia.setUsuario(usuario);
-       persistencia.setKeyUsuario(key);
+        persistencia.setUsuario(usuario);
+        persistencia.setKeyUsuario(key);
         Modifica_Borra_usuario_Fragment fragment= new Modifica_Borra_usuario_Fragment();
         fragmentManager=getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.contenedor,fragment).addToBackStack("usersfragment").commit();
 
- }
+    }
 }

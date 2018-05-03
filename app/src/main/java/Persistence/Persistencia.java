@@ -22,6 +22,7 @@ import Logic.Averia;
 import Logic.Usuario;
 
 public class Persistencia {
+
     FirebaseDatabase database;
     final DatabaseReference myRefaverias;
     final DatabaseReference myRefusuarios;
@@ -37,126 +38,127 @@ public class Persistencia {
 
     private static final Persistencia crud = new Persistencia();
 
-   public static Persistencia getInstance() {
+    public static Persistencia getInstance() {
         return crud;
     }
 
     private Persistencia() {
-         database = FirebaseDatabase.getInstance();
+        database = FirebaseDatabase.getInstance();
         myRefaverias = database.getReference("averias");
         myRefusuarios = database.getReference("usuarios");
         averiaToModificar=null;
         mAuth=FirebaseAuth.getInstance();
+    }
 
+    public void creaAuthparaUsers(Context context) {
 
+        FirebaseOptions firebaseOptions = new FirebaseOptions.Builder()
+                .setDatabaseUrl("[https://fixthefault.firebaseio.com]")
+                .setApiKey("AIzaSyCdugYUPuezeqAp8LKhsHiaQ8cymGE4Q9k")
+                .setApplicationId("1:851280112156:android:c578a84ba269169b").build();
 
-   }
-   public void creaAuthparaUsers(Context context){
-       FirebaseOptions firebaseOptions = new FirebaseOptions.Builder()
-               .setDatabaseUrl("[https://fixthefault.firebaseio.com]")
-               .setApiKey("AIzaSyCdugYUPuezeqAp8LKhsHiaQ8cymGE4Q9k")
-               .setApplicationId("1:851280112156:android:c578a84ba269169b").build();
-
-       try { FirebaseApp myApp = FirebaseApp.initializeApp(context, firebaseOptions, "AnyAppName");
-           mAuth2 = FirebaseAuth.getInstance(myApp);
-       } catch (IllegalStateException e){
-           mAuth2 = FirebaseAuth.getInstance(FirebaseApp.getInstance("AnyAppName"));
-       }
-}
-
-public Averia obtenerAveria(String key){
-    myRefaverias.orderByChild("key").equalTo(key).addChildEventListener(new ChildEventListener() {
-        @Override
-        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-            averia= dataSnapshot.getValue(Averia.class);
-
+        try { FirebaseApp myApp = FirebaseApp.initializeApp(context, firebaseOptions, "AnyAppName");
+            mAuth2 = FirebaseAuth.getInstance(myApp);
+        } catch (IllegalStateException e){
+            mAuth2 = FirebaseAuth.getInstance(FirebaseApp.getInstance("AnyAppName"));
         }
+    }
 
-        @Override
-        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+    public Averia obtenerAveria(String key){
+        myRefaverias.orderByChild("key").equalTo(key).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                averia= dataSnapshot.getValue(Averia.class);
 
-        }
+            }
 
-        @Override
-        public void onChildRemoved(DataSnapshot dataSnapshot) {
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-        }
+            }
 
-        @Override
-        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-        }
+            }
 
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-        }
-    });
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
-      return averia;
+        return averia;
 
-}
-public void setAveriaToModificar(Averia averia){averiaToModificar=averia;}
+    }
 
-public void guardaAveriaModificada(String key, Averia averia){
+    public void setAveriaToModificar(Averia averia){ averiaToModificar=averia;}
+
+    public void guardaAveriaModificada(String key, Averia averia){
         averia.setUser(averiaToModificar.getUser());
         myRefaverias.child(key).setValue(averia);
+    }
 
-}
-public void eliminaAveria(String key){
-       myRefaverias.child(key).setValue(null);
-}
+    public void eliminaAveria(String key){
+           myRefaverias.child(key).setValue(null);
+    }
 
-public void registrarUsuario(final Usuario user){
-       boolean ok=true;
+    public void registrarUsuario(final Usuario user){
 
-           mAuth2.createUserWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        boolean ok=true;
+
+        mAuth2.createUserWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                   @Override
+                   public void onComplete(@NonNull Task<AuthResult> task) {
+                       if (task.isSuccessful()) {
+                           myRefusuarios.push().setValue(user);
+                       }
+                       else{
+
+                       }
+
+
+                   }
+               });
+
+
+    }
+
+    public void setUsuarioModificado(Usuario usuario){
+           this.usuarioModificado=usuario;
+    }
+
+    public void modificaUsuario(){
+
+        if(!usuario.getNombre().equals(usuarioModificado.getNombre())){ usuario.setNombre(usuarioModificado.getNombre()); }
+
+        if(!usuario.getPassword().equals(usuarioModificado.getPassword())){ cambiaPassword(); }
+
+        if(!usuario.getRol().equals(usuarioModificado.getRol())){ usuario.setRol(usuarioModificado.getRol()); }
+    }
+
+    public void cambiaPassword(){
+
+        mAuth2.signInWithEmailAndPassword(usuario.getEmail(),usuario.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                @Override
                public void onComplete(@NonNull Task<AuthResult> task) {
-                   if (task.isSuccessful()) {
-
-                      myRefusuarios.push().setValue(user);
-                   }
-                   else{
-
-                   }
-
-
+                   if(task.isSuccessful()){}
+                   FirebaseUser user = mAuth2.getCurrentUser();
+                   user.updatePassword(usuarioModificado.getPassword());
                }
-           });
+        });
 
+    }
 
-}
-
-public void setUsuarioModificado(Usuario usuario){
-       this.usuarioModificado=usuario;
-}
-public void modificaUsuario(){
-       if(!usuario.getNombre().equals(usuarioModificado.getNombre())){usuario.setNombre(usuarioModificado.getNombre());}
-       if(!usuario.getPassword().equals(usuarioModificado.getPassword())){cambiaPassword();}
-       if(!usuario.getRol().equals(usuarioModificado.getRol())){usuario.setRol(usuarioModificado.getRol());
-
-
-       }
-
-
-}
-public void cambiaPassword(){
-       mAuth2.signInWithEmailAndPassword(usuario.getEmail(),usuario.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-           @Override
-           public void onComplete(@NonNull Task<AuthResult> task) {
-               if(task.isSuccessful()){}
-               FirebaseUser user = mAuth2.getCurrentUser();
-               user.updatePassword(usuarioModificado.getPassword());
-           }
-       });
-}
-public void guardaUsuario(){
-
-       myRefusuarios.child(keyUsuario).setValue(usuario);
-
-}
+    public void guardaUsuario(){
+        myRefusuarios.child(keyUsuario).setValue(usuario);
+    }
 
     public String getKeyUsuario() {
         return keyUsuario;

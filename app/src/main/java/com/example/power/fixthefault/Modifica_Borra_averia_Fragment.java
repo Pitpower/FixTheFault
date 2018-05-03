@@ -19,15 +19,14 @@ import Persistence.Persistencia;
 
 
 public class Modifica_Borra_averia_Fragment extends Fragment {
-String key;
-String lugar;
-String descripcion;
-TextView etiquetaDescripcion,etiquetaLugar;
-EditText editableLugar,editableDescripcion;
-Button btnguardar;
-Button btneliminar;
-Persistencia persistencia;
-
+    String key;
+    String lugar;
+    String descripcion;
+    TextView etiquetaDescripcion,etiquetaLugar;
+    EditText editableLugar,editableDescripcion;
+    Button btnguardar;
+    Button btneliminar;
+    Persistencia persistencia;
 
     public Modifica_Borra_averia_Fragment() {
         // Required empty public constructor
@@ -36,11 +35,12 @@ Persistencia persistencia;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-       key=getArguments().getString("Key");
-       lugar=getArguments().getString("Lugar");
-       descripcion=getArguments().getString("Descripcion");
-       persistencia=Persistencia.getInstance();
+        key = getArguments().getString("Key");
+        lugar = getArguments().getString("Lugar");
+        descripcion = getArguments().getString("Descripcion");
+        persistencia = Persistencia.getInstance();
         return inflater.inflate(R.layout.fragment_modifica__borra_averia, container, false);
     }
 
@@ -48,12 +48,12 @@ Persistencia persistencia;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        etiquetaLugar=(TextView)getActivity().findViewById(R.id.textview_fragment_lugar);
-        etiquetaDescripcion=(TextView)getActivity().findViewById(R.id.textview_fragment_descripcion);
-        editableLugar=(EditText)getActivity().findViewById(R.id.editText_fragment_nombre);
-        editableDescripcion=(EditText)getActivity().findViewById(R.id.editText_fragment_Descripcion);
-        btnguardar=(Button)getActivity().findViewById(R.id.btn_fragment_guardar);
-        btneliminar=(Button)getActivity().findViewById(R.id.btn_fragment_eliminar);
+        etiquetaLugar = (TextView)getActivity().findViewById(R.id.textview_fragment_lugar);
+        etiquetaDescripcion = (TextView)getActivity().findViewById(R.id.textview_fragment_descripcion);
+        editableLugar = (EditText)getActivity().findViewById(R.id.editText_fragment_nombre);
+        editableDescripcion = (EditText)getActivity().findViewById(R.id.editText_fragment_Descripcion);
+        btnguardar = (Button)getActivity().findViewById(R.id.btn_fragment_guardar);
+        btneliminar = (Button)getActivity().findViewById(R.id.btn_fragment_eliminar);
 
         etiquetaLugar.setText("Lugar");
         etiquetaDescripcion.setText("Descripcion");
@@ -63,8 +63,8 @@ Persistencia persistencia;
         btnguardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                lugar=editableLugar.getText().toString();
-                descripcion=editableDescripcion.getText().toString();
+                lugar = editableLugar.getText().toString();
+                descripcion = editableDescripcion.getText().toString();
                 Averia averia = new Averia(lugar,descripcion,null);
                 persistencia.guardaAveriaModificada(key,averia);
                 getFragmentManager().popBackStack();
@@ -81,9 +81,6 @@ Persistencia persistencia;
     });
 
     }
-
-
-
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name

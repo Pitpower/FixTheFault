@@ -22,17 +22,20 @@ import Persistence.Persistencia;
 
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,BlankFragment.OnFragmentInteractionListener {
-FragmentManager fragmentManager;
+
+    FragmentManager fragmentManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        Persistencia persistencia =Persistencia.getInstance();
+        Persistencia persistencia = Persistencia.getInstance();
         persistencia.creaAuthparaUsers(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        fragmentManager=getSupportFragmentManager();
+        fragmentManager = getSupportFragmentManager();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,8 +52,8 @@ FragmentManager fragmentManager;
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        TextView nombreUsuario=navigationView.getHeaderView(0).findViewById(R.id.topMenu_nombreUsuario);
-        Session sesion=Session.getInstance();
+        TextView nombreUsuario = navigationView.getHeaderView(0).findViewById(R.id.topMenu_nombreUsuario);
+        Session sesion = Session.getInstance();
         nombreUsuario.setText(sesion.getUser().getNombre());
     }
 
@@ -69,8 +72,6 @@ FragmentManager fragmentManager;
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main2, menu);
                // menu.findItem(R.id.nav_camera).setVisible(false);
-
-
 
         return true;
     }
@@ -101,7 +102,6 @@ FragmentManager fragmentManager;
         } else if (id == R.id.nav_usuarios) {
             fragmentManager.beginTransaction().replace(R.id.contenedor,new UsersFragment()).commit();
         } else if (id == R.id.nav_slideshow) {
-
 
 
         } else if (id == R.id.nav_share) {

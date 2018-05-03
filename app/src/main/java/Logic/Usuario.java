@@ -2,13 +2,15 @@ package Logic;
 
 public class Usuario {
 
-    private String nombre,email,rol,password;
+    private String nombre, email, rol, password;
+
     public Usuario(){}
-    public Usuario(String nombre,String email,String rol,String password){
-        this.nombre=nombre;
-        this.email=email;
-        this.rol=rol;
-        this.password=password;
+
+    public Usuario(String nombre, String email, String rol, String password){
+        this.nombre = nombre;
+        this.email = email;
+        this.rol = rol;
+        this.password = password;
     }
 
     public String getNombre() {
