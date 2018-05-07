@@ -42,6 +42,7 @@ public class RegistrarUsuario_fragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        getActivity().setTitle("Nuevo usuario");
         sesion = Session.getInstance();
         persistencia = Persistencia.getInstance();
         Log.i("Usuario",sesion.getUser().getNombre());

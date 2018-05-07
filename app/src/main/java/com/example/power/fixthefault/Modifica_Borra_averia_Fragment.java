@@ -48,6 +48,7 @@ public class Modifica_Borra_averia_Fragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        getActivity().setTitle("Modificar averia");
         etiquetaLugar = (TextView)getActivity().findViewById(R.id.textview_fragment_lugar);
         etiquetaDescripcion = (TextView)getActivity().findViewById(R.id.textview_fragment_descripcion);
         editableLugar = (EditText)getActivity().findViewById(R.id.editText_fragment_nombre);

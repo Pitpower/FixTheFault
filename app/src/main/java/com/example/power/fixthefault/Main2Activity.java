@@ -55,6 +55,7 @@ public class Main2Activity extends AppCompatActivity
         TextView nombreUsuario = navigationView.getHeaderView(0).findViewById(R.id.topMenu_nombreUsuario);
         Session sesion = Session.getInstance();
         nombreUsuario.setText(sesion.getUser().getNombre());
+        fragmentManager.beginTransaction().replace(R.id.contenedor,new BlankFragment()).commit();
     }
 
     @Override
@@ -119,4 +120,6 @@ public class Main2Activity extends AppCompatActivity
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+
 }

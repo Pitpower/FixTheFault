@@ -46,6 +46,7 @@ public class Modifica_Borra_usuario_Fragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        getActivity().setTitle("Modificar usuario");
         persistencia = Persistencia.getInstance();
         usuario = persistencia.getUsuario();
         editableNombre = (EditText)getActivity().findViewById(R.id.editText_fragment_nombre);
@@ -82,6 +83,7 @@ public class Modifica_Borra_usuario_Fragment extends Fragment {
         btneliminar.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            persistencia.eliminaUsuario();
             getFragmentManager().popBackStack();
         }
     });

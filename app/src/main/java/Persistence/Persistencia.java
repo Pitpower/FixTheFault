@@ -175,4 +175,19 @@ public class Persistencia {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+public void eliminaUsuario(){
+       mAuth2.signInWithEmailAndPassword(usuario.getEmail(),usuario.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        @Override
+        public void onComplete(@NonNull Task<AuthResult> task) {
+            if(task.isSuccessful()){}
+            FirebaseUser user = mAuth2.getCurrentUser();
+            user.delete();
+            myRefusuarios.child(keyUsuario).setValue(null);
+
+        }
+    });
+
+
+    }
+
 }
