@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +35,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.AveriasviewHolder>{
 
     @Override
     public AveriasviewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_recycler,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_recycler_prioridad,parent,false);
         AveriasviewHolder holder=new AveriasviewHolder(v);
         return holder;
     }
@@ -45,6 +46,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.AveriasviewHolder>{
         Averia averia = averias.get(position);
         holder.textViewLugar.setText(averia.getUbicacion());
         holder.textViewDescripcion.setText(averia.getDescripcion());
+        holder.btn.setBackgroundColor(0xFF00FF00);
     }
 
 
@@ -55,11 +57,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.AveriasviewHolder>{
 
     public  class AveriasviewHolder extends RecyclerView.ViewHolder{
         TextView textViewLugar,textViewDescripcion;
+        Button btn;
 
         public AveriasviewHolder(final View itemView) {
             super(itemView);
-            textViewLugar = itemView.findViewById(R.id.textview_Lugar);
-            textViewDescripcion = itemView.findViewById(R.id.textview_Descripcion);
+            textViewLugar = itemView.findViewById(R.id.textview_Lugar1);
+            textViewDescripcion = itemView.findViewById(R.id.textview_Descripcion1);
+            btn = itemView.findViewById(R.id.button3);
+
             itemView.setOnClickListener(new View.OnClickListener() {
 
 
@@ -72,9 +77,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.AveriasviewHolder>{
                             mlistener.onItemClick(position);
                         }
                     }
-                       // Averia aver=averias.get(position);
-
-                       // Log.i("Myapp",aver.getUbicacion());
                 }
             });
 

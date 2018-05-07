@@ -12,7 +12,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import Logic.Averia;
-import Logic.Sesion;
 import Logic.Session;
 
 public class Averias_nueva_activity extends AppCompatActivity {
