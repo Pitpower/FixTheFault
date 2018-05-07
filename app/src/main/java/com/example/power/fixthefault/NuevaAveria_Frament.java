@@ -36,13 +36,13 @@ public class NuevaAveria_Frament extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         getActivity().setTitle("Nueva averia");
-        sesion=Session.getInstance();
+        sesion = Session.getInstance();
         Log.i("Usuario",sesion.getUser().getNombre());
-        textviewLugar=(TextView)getView().findViewById(R.id.textview_fragment_nueva_lugar);
-        textviewDescripcion=(TextView)getView().findViewById(R.id.textview_fragment_nueva_descripcion);
-        guardar=(Button)getView().findViewById(R.id.btn_fragment_nueva_guardar);
-        editextLugar=(EditText)getView().findViewById(R.id.editext_fragment_nueva_lugar);
-        editextDescripcion=(EditText)getView().findViewById(R.id.editext_fragment_nueva_descripcion);
+        textviewLugar = (TextView)getView().findViewById(R.id.textview_fragment_nueva_lugar);
+        textviewDescripcion = (TextView)getView().findViewById(R.id.textview_fragment_nueva_descripcion);
+        guardar = (Button)getView().findViewById(R.id.btn_fragment_nueva_guardar);
+        editextLugar = (EditText)getView().findViewById(R.id.editext_fragment_nueva_lugar);
+        editextDescripcion = (EditText)getView().findViewById(R.id.editext_fragment_nueva_descripcion);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference("averias");
@@ -50,7 +50,7 @@ public class NuevaAveria_Frament extends Fragment {
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Averia averia=new Averia(editextLugar.getText().toString(),editextDescripcion.getText().toString(),sesion.getUser());
+                Averia averia = new Averia(editextLugar.getText().toString(),editextDescripcion.getText().toString(),sesion.getUser());
                 myRef.push().setValue(averia);
                 Log.i("Usuario",sesion.getUser().getNombre());
 

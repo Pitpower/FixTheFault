@@ -34,7 +34,7 @@ import Persistence.Persistencia;
 
 
 public class BlankFragment extends Fragment implements Adapter.OnItemClickListener {
-Persistencia persistencia;
+    Persistencia persistencia;
     Button btnNueva;
     RecyclerView rv;
     List<Averia> averias;
@@ -42,11 +42,12 @@ Persistencia persistencia;
     Adapter adapter;
     DatabaseReference myRef;
     // TODO: Rename and change types of parameters
-FragmentManager fragmentManager;
+    FragmentManager fragmentManager;
 
     public BlankFragment() {
         // Required empty public constructor
     }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
@@ -54,13 +55,13 @@ FragmentManager fragmentManager;
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("averias");
-        persistencia=Persistencia.getInstance();
+        persistencia = Persistencia.getInstance();
 
-        btnNueva=(Button)getView().findViewById(R.id.btn_nueva);
+        btnNueva = (Button)getView().findViewById(R.id.btn_nueva);
         rv = (RecyclerView) getView().findViewById(R.id.pruebarecicler);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         averias = new ArrayList<>();
-        averiasKeys=new ArrayList<>();
+        averiasKeys = new ArrayList<>();
 
         adapter = new Adapter(averias);
         rv.setAdapter(adapter);
@@ -71,9 +72,10 @@ FragmentManager fragmentManager;
             public void onDataChange(DataSnapshot dataSnapshot) {
                 averias.removeAll(averias);
                 averiasKeys.removeAll(averiasKeys);
+
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Averia averia = snapshot.getValue(Averia.class);
-                    String key=snapshot.getKey();
+                    String key = snapshot.getKey();
                     averias.add(averia);
                     averiasKeys.add(key);
 
@@ -86,10 +88,11 @@ FragmentManager fragmentManager;
 
             }
         });
+
         btnNueva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragmentManager=getActivity().getSupportFragmentManager();
+                fragmentManager = getActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.contenedor,new NuevaAveria_Frament()).addToBackStack("blankfragment").commit();
             }
         });
@@ -101,12 +104,7 @@ FragmentManager fragmentManager;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-
-
         return inflater.inflate(R.layout.fragment_blank, container, false);
-
-
     }
 
     public interface OnFragmentInteractionListener {
@@ -114,23 +112,24 @@ FragmentManager fragmentManager;
         public void onFragmentInteraction(Uri uri);
     }
 
-        @Override
-        public void onItemClick(int position) {
-           Averia averia=averias.get(position);
-           String key=averiasKeys.get(position);
-           Bundle args=new Bundle();
-           args.putString("Lugar",averia.getUbicacion());
-           args.putString("Descripcion",averia.getDescripcion());
-           args.putString("Key",key);
-           persistencia.setAveriaToModificar(averia);
-           Modifica_Borra_averia_Fragment fragment= new Modifica_Borra_averia_Fragment();
-           fragment.setArguments(args);
-            fragmentManager=getActivity().getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.contenedor,fragment).addToBackStack("blankfragment").commit();
-           // Intent averiasExtended = new Intent(getApplicationContext(), Averias_extended_activity.class);
-           // averiasExtended.putExtra("averia",averia);
-            //averiasExtended.putExtra("key",averiasKeys.get(position));
-           // startActivity(averiasExtended);
-            //Log.i("PRUEBAS",averiasKeys.get(position));
-        }
+    @Override
+    public void onItemClick(int position) {
+
+        Averia averia = averias.get(position);
+        String key = averiasKeys.get(position);
+        Bundle args = new Bundle();
+        args.putString("Lugar",averia.getUbicacion());
+        args.putString("Descripcion",averia.getDescripcion());
+        args.putString("Key",key);
+        persistencia.setAveriaToModificar(averia);
+        Modifica_Borra_averia_Fragment fragment = new Modifica_Borra_averia_Fragment();
+        fragment.setArguments(args);
+        fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.contenedor,fragment).addToBackStack("blankfragment").commit();
+       // Intent averiasExtended = new Intent(getApplicationContext(), Averias_extended_activity.class);
+       // averiasExtended.putExtra("averia",averia);
+        //averiasExtended.putExtra("key",averiasKeys.get(position));
+       // startActivity(averiasExtended);
+        //Log.i("PRUEBAS",averiasKeys.get(position));
+    }
 }

@@ -9,8 +9,11 @@ public class Averia implements Serializable {
     private Usuario user;
 
 
-public Averia(String lugar,String descripcion,Usuario user){this.ubicacion=lugar;this.descripcion=descripcion;this.user=user;}
-public Averia(){}
+    public Averia (String lugar,String descripcion,Usuario user) {
+        this.ubicacion=lugar;this.descripcion=descripcion;this.user=user;
+    }
+
+    public Averia(){}
 
     public String getUbicacion() {
         return ubicacion;

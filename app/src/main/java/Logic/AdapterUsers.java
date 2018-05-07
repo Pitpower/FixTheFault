@@ -17,21 +17,26 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.UsersViewHol
     public AdapterUsers(List<Usuario> usuarios) {
         this.usuarios = usuarios;
     }
+
     public interface OnItemClickListener{
         void onItemClick(int position);
     }
-    public void setOnItemClickListener(OnItemClickListener listener){mlistener=listener;}
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mlistener=listener;
+    }
+
     @Override
     public UsersViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
-        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.row_recyclerusers,parent,false);
-        UsersViewHolder holder=new UsersViewHolder(v);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_recyclerusers,parent,false);
+        UsersViewHolder holder = new UsersViewHolder(v);
         return holder;
     }
 
 
     @Override
     public void onBindViewHolder(UsersViewHolder holder, int position) {
-        Usuario usuario=usuarios.get(position);
+        Usuario usuario = usuarios.get(position);
         holder.textViewNombre.setText(usuario.getNombre());
         holder.textViewEmail.setText(usuario.getEmail());
     }
@@ -44,10 +49,11 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.UsersViewHol
 
     public  class UsersViewHolder extends RecyclerView.ViewHolder{
         TextView textViewNombre,textViewEmail;
+
         public UsersViewHolder(final View itemView) {
             super(itemView);
-            textViewNombre=itemView.findViewById(R.id.textview_Nombre);
-            textViewEmail=itemView.findViewById(R.id.textview_Email);
+            textViewNombre = itemView.findViewById(R.id.textview_Nombre);
+            textViewEmail = itemView.findViewById(R.id.textview_Email);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -55,13 +61,13 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.UsersViewHol
                         int position=getAdapterPosition();
                         if(position!=-1){
                             mlistener.onItemClick(position);
-                        }}
+                        }
+                    }
                     // Averia aver=averias.get(position);
 
                     // Log.i("Myapp",aver.getUbicacion());
                 }
             });
-
         }
     }
 }

@@ -34,7 +34,6 @@ public class RegistrarUsuario_fragment extends Fragment {
     Persistencia persistencia;
 
 
-
     private OnFragmentInteractionListener mListener;
 
     public RegistrarUsuario_fragment() {
@@ -44,17 +43,17 @@ public class RegistrarUsuario_fragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         getActivity().setTitle("Nuevo usuario");
-        sesion= Session.getInstance();
-        persistencia=Persistencia.getInstance();
+        sesion = Session.getInstance();
+        persistencia = Persistencia.getInstance();
         Log.i("Usuario",sesion.getUser().getNombre());
         //textviewLugar=(TextView)getView().findViewById(R.id.textview_fragment_nueva_lugar);
        // textviewDescripcion=(TextView)getView().findViewById(R.id.textview_fragment_nueva_descripcion);
-        guardar=(Button)getView().findViewById(R.id.btn_fragment_nueva_guardar);
-        editextNombre=(EditText)getView().findViewById(R.id.editext_fragment_nueva_nombre);
-        editextEmail=(EditText)getView().findViewById(R.id.editext_fragment_nueva_email);
-        editextPassword=(EditText)getView().findViewById(R.id.editText_password);
-        spinner=(Spinner)getView().findViewById(R.id.spinner_usuario);
-        String[] roles={"Admin","tecnico","normal"};
+        guardar = (Button)getView().findViewById(R.id.btn_fragment_nueva_guardar);
+        editextNombre = (EditText)getView().findViewById(R.id.editext_fragment_nueva_nombre);
+        editextEmail = (EditText)getView().findViewById(R.id.editext_fragment_nueva_email);
+        editextPassword = (EditText)getView().findViewById(R.id.editText_password);
+        spinner = (Spinner)getView().findViewById(R.id.spinner_usuario);
+        String[] roles = {"Admin","tecnico","normal"};
         spinner.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, roles));
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference("averias");
@@ -63,13 +62,13 @@ public class RegistrarUsuario_fragment extends Fragment {
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nombre=editextNombre.getText().toString();
-                String email=editextEmail.getText().toString();
-                String password=editextPassword.getText().toString();
-                String rol=(String)spinner.getSelectedItem();
+                String nombre = editextNombre.getText().toString();
+                String email = editextEmail.getText().toString();
+                String password = editextPassword.getText().toString();
+                String rol = (String)spinner.getSelectedItem();
 
 
-                Usuario user=new Usuario(nombre,email,rol,password);
+                Usuario user = new Usuario(nombre,email,rol,password);
                 persistencia.registrarUsuario(user);
                // Log.i("Usuario",sesion.getUser().getNombre());
 

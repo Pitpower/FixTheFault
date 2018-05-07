@@ -64,6 +64,7 @@ public class LoginActivity extends AppCompatActivity  {
     FirebaseAuth mAuth;
     DatabaseReference myRef;
     Session sesion;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,59 +108,56 @@ public class LoginActivity extends AppCompatActivity  {
             }
         });
 
-    mAuthListener=new FirebaseAuth.AuthStateListener(){
-        @Override
-        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-            FirebaseUser user = mAuth.getCurrentUser();
-            if(user!=null){
-              Log.i("SESION INICIADA","Statechange- Usuario logeado:"+user.getEmail().toString());
-              // showProgress(false);
-                myRef.orderByChild("email").equalTo(user.getEmail()).addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        Usuario usuario= (Usuario)dataSnapshot.getValue(Usuario.class);
-                        sesion.setUser(usuario);
-                        Intent intentNueva=new Intent(getApplicationContext(), Main2Activity.class);
-                        startActivity(intentNueva);
-                       // Log.i("Objeto","usuario="+sesion.getUser().getNombre());
-                    }
+        mAuthListener=new FirebaseAuth.AuthStateListener(){
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = mAuth.getCurrentUser();
+                if(user!=null) {
+                  Log.i("SESION INICIADA","Statechange- Usuario logeado:"+user.getEmail().toString());
+                  // showProgress(false);
+                    myRef.orderByChild("email").equalTo(user.getEmail()).addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                            Usuario usuario= (Usuario)dataSnapshot.getValue(Usuario.class);
+                            sesion.setUser(usuario);
+                            Intent intentNueva=new Intent(getApplicationContext(), Main2Activity.class);
+                            startActivity(intentNueva);
+                           // Log.i("Objeto","usuario="+sesion.getUser().getNombre());
+                        }
 
-                    @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                        @Override
+                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+                        @Override
+                        public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                        @Override
+                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                    }
-                });
-            } else {
-                Log.i("SESION NO INICIADA","La sesion no se ha podido abrir o se ha cerrado");
+                        }
+                    });
+                } else {
+                    Log.i("SESION NO INICIADA","La sesion no se ha podido abrir o se ha cerrado");
+                }
             }
-        }
-    };
-    mAuth.addAuthStateListener(mAuthListener);
+        };
+        mAuth.addAuthStateListener(mAuthListener);
     }
 
 
     private void attemptLogin() {
 
-
-
         mEmailView.setError(null);
         mPasswordView.setError(null);
-
 
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
@@ -167,13 +165,11 @@ public class LoginActivity extends AppCompatActivity  {
         boolean cancel = false;
         View focusView = null;
 
-
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
         }
-
 
         if (TextUtils.isEmpty(email)) {
             mEmailView.setError(getString(R.string.error_field_required));
@@ -186,7 +182,6 @@ public class LoginActivity extends AppCompatActivity  {
         }
 
         if (cancel) {
-
             focusView.requestFocus();
         } else {
             showProgress(true);
@@ -202,18 +197,17 @@ public class LoginActivity extends AppCompatActivity  {
     private boolean isPasswordValid(String password) {
         return password.length() > 3;
     }
-private void iniciarSesion(String email, String password){
-    FirebaseAuth.getInstance().signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+    private void iniciarSesion(String email, String password){
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
         @Override
         public void onComplete(@NonNull Task<AuthResult> task) {
             if (task.isSuccessful()) {
-
                 Log.i("SESION","iniciarSesion() ok!");
                 showProgress(false);
-            }
-            else{ Log.i("SESION","iniciarSesion() FAIL!");
-            showProgress(false);
-
+            } else {
+                Log.i("SESION","iniciarSesion() FAIL!");
+                showProgress(false);
             }
         }
     });

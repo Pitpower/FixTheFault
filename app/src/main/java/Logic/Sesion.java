@@ -1,18 +1,17 @@
 package Logic;
 
 public class Sesion {
-    private static final Sesion sesion=null;
+    private static final Sesion sesion = null;
     private Usuario user;
 
     private Sesion(){}
 
     public static Sesion getInstance(){
-        if(sesion==null){
+        if(sesion == null) {
             return new Sesion();
-        }else{
+        } else {
             return sesion;
         }
-
     }
 
     public Usuario getUser() {
