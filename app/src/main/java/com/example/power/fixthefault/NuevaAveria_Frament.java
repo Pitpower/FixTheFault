@@ -35,6 +35,7 @@ public class NuevaAveria_Frament extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        getActivity().setTitle("Nueva averia");
         sesion=Session.getInstance();
         Log.i("Usuario",sesion.getUser().getNombre());
         textviewLugar=(TextView)getView().findViewById(R.id.textview_fragment_nueva_lugar);

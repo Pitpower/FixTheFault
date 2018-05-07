@@ -69,6 +69,7 @@ public class LoginActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
+        setTitle("Login");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("usuarios");
         sesion=Session.getInstance();

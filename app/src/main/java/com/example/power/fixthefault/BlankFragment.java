@@ -93,6 +93,7 @@ FragmentManager fragmentManager;
                 fragmentManager.beginTransaction().replace(R.id.contenedor,new NuevaAveria_Frament()).addToBackStack("blankfragment").commit();
             }
         });
+    getActivity().setTitle("Averias");
     }
 
 

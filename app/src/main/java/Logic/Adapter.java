@@ -18,6 +18,7 @@ import java.util.List;
 public class Adapter extends RecyclerView.Adapter<Adapter.AveriasviewHolder>{
  private OnItemClickListener mlistener;
     List<Averia> averias;
+    TextView a;
 
     public Adapter(List<Averia> averias) {
         this.averias = averias;
@@ -51,6 +52,7 @@ Averia averia=averias.get(position);
 TextView textViewLugar,textViewDescripcion;
         public AveriasviewHolder(final View itemView) {
             super(itemView);
+
             textViewLugar=itemView.findViewById(R.id.textview_Lugar);
             textViewDescripcion=itemView.findViewById(R.id.textview_Descripcion);
 itemView.setOnClickListener(new View.OnClickListener() {

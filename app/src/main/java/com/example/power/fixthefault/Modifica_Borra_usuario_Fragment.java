@@ -46,6 +46,7 @@ Usuario usuario;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        getActivity().setTitle("Modificar usuario");
         persistencia=Persistencia.getInstance();
         usuario=persistencia.getUsuario();
         editableNombre=(EditText)getActivity().findViewById(R.id.editText_fragment_nombre);
@@ -84,7 +85,9 @@ Usuario usuario;
     btneliminar.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            persistencia.eliminaUsuario();
             getFragmentManager().popBackStack();
+
         }
     });
 

@@ -46,7 +46,7 @@ public UsersFragment() {
 @Override
 public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
-
+        getActivity().setTitle("Usuarios");
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("usuarios");

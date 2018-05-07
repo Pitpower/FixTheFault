@@ -52,6 +52,7 @@ FragmentManager fragmentManager;
         TextView nombreUsuario=navigationView.getHeaderView(0).findViewById(R.id.topMenu_nombreUsuario);
         Session sesion=Session.getInstance();
         nombreUsuario.setText(sesion.getUser().getNombre());
+        fragmentManager.beginTransaction().replace(R.id.contenedor,new BlankFragment()).commit();
     }
 
     @Override
@@ -119,4 +120,6 @@ FragmentManager fragmentManager;
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+
 }
