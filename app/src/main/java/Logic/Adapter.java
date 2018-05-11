@@ -14,7 +14,10 @@ import android.widget.Toast;
 
 import com.example.power.fixthefault.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.AveriasviewHolder>{
     private OnItemClickListener mlistener;
@@ -43,10 +46,19 @@ public class Adapter extends RecyclerView.Adapter<Adapter.AveriasviewHolder>{
 
     @Override
     public void onBindViewHolder(AveriasviewHolder holder, int position) {
+
         Averia averia = averias.get(position);
+
         holder.textViewLugar.setText(averia.getUbicacion());
         holder.textViewDescripcion.setText(averia.getDescripcion());
         holder.btn.setBackgroundColor(0xFF00FF00);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+
+
+        String fecha = dateFormat.format(averia.getFechaCreacion());
+        holder.textViewFecha.setText(fecha);
+
     }
 
 
@@ -56,13 +68,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.AveriasviewHolder>{
     }
 
     public  class AveriasviewHolder extends RecyclerView.ViewHolder{
-        TextView textViewLugar,textViewDescripcion;
+        TextView textViewLugar,textViewDescripcion,textViewFecha;
         Button btn;
 
         public AveriasviewHolder(final View itemView) {
             super(itemView);
             textViewLugar = itemView.findViewById(R.id.textview_Lugar1);
             textViewDescripcion = itemView.findViewById(R.id.textview_Descripcion1);
+            textViewFecha = itemView.findViewById(R.id.textViewFecha);
             btn = itemView.findViewById(R.id.button3);
 
             itemView.setOnClickListener(new View.OnClickListener() {

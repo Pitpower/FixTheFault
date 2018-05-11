@@ -76,10 +76,11 @@ public class BlankFragment extends Fragment implements Adapter.OnItemClickListen
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Averia averia = snapshot.getValue(Averia.class);
                     String key = snapshot.getKey();
-                    averias.add(averia);
-                    averiasKeys.add(key);
 
-                }
+                    averias.add(averia);
+                    averiasKeys.add(key);}
+
+
                 adapter.notifyDataSetChanged();
             }
 

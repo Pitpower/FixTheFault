@@ -7,10 +7,20 @@ public class Averia implements Serializable {
     public String ubicacion;
     public String descripcion;
     private Usuario user;
+    private Usuario tecnico;
+    private int prioridad;
+    private Date fechaCreacion;
+    private String estado;
+
 
 
     public Averia (String lugar,String descripcion,Usuario user) {
-        this.ubicacion=lugar;this.descripcion=descripcion;this.user=user;
+        this.ubicacion=lugar;
+        this.descripcion=descripcion;
+        this.user=user;
+        fechaCreacion=new Date();
+        prioridad=-1;
+        estado="pendiente";
     }
 
     public Averia(){}
@@ -37,5 +47,37 @@ public class Averia implements Serializable {
 
     public void setUser(Usuario user) {
         this.user = user;
+    }
+
+    public Usuario getTecnico() {
+        return tecnico;
+    }
+
+    public void setTecnico(Usuario tecnico) {
+        this.tecnico = tecnico;
+    }
+
+    public int getPrioridad() {
+        return prioridad;
+    }
+
+    public void setPrioridad(int prioridad) {
+        this.prioridad = prioridad;
+    }
+
+    public Date getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }
