@@ -18,6 +18,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -43,6 +44,7 @@ public class LoginActivity extends AppCompatActivity  {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private ImageView signinImage;
     FirebaseAuth.AuthStateListener mAuthListener;
     FirebaseAuth mAuth;
     DatabaseReference myRef;
@@ -60,7 +62,7 @@ public class LoginActivity extends AppCompatActivity  {
 
         mAuth=FirebaseAuth.getInstance();
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-
+        signinImage = (ImageView) findViewById(R.id.image_signin);
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -72,68 +74,23 @@ public class LoginActivity extends AppCompatActivity  {
                 return false;
             }
         });
-        Button btn_signOut = (Button) findViewById(R.id.btnsignOut);
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+
+        //Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+//        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                attemptLogin();
+//            }
+//        });
+        signinImage.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 attemptLogin();
             }
         });
-
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
-        btn_signOut.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-            }
-        });
-
-        mAuthListener=new FirebaseAuth.AuthStateListener(){
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = mAuth.getCurrentUser();
-                if(user!=null) {
-                  Log.i("SESION INICIADA","Statechange- Usuario logeado:"+user.getEmail().toString());
-                  // showProgress(false);
-                    myRef.orderByChild("email").equalTo(user.getEmail()).addChildEventListener(new ChildEventListener() {
-                        @Override
-                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                            Usuario usuario= (Usuario)dataSnapshot.getValue(Usuario.class);
-                            sesion.setUser(usuario);
-                            Intent intentNueva=new Intent(getApplicationContext(), Main2Activity.class);
-                            startActivity(intentNueva);
-                           // Log.i("Objeto","usuario="+sesion.getUser().getNombre());
-                        }
-
-                        @Override
-                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                        }
-
-                        @Override
-                        public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                        }
-
-                        @Override
-                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-                } else {
-                    Log.i("SESION NO INICIADA","La sesion no se ha podido abrir o se ha cerrado");
-                }
-            }
-        };
-        mAuth.addAuthStateListener(mAuthListener);
     }
 
 
@@ -186,8 +143,40 @@ public class LoginActivity extends AppCompatActivity  {
         @Override
         public void onComplete(@NonNull Task<AuthResult> task) {
             if (task.isSuccessful()) {
-                Log.i("SESION","iniciarSesion() ok!");
-                showProgress(false);
+                FirebaseUser user = mAuth.getCurrentUser();
+                myRef.orderByChild("email").equalTo(user.getEmail()).addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        Usuario usuario= (Usuario)dataSnapshot.getValue(Usuario.class);
+                        sesion.setUser(usuario);
+                        showProgress(false);
+                        Intent intentNueva=new Intent(getApplicationContext(), Main2Activity.class);
+                        startActivity(intentNueva);
+                        // Log.i("Objeto","usuario="+sesion.getUser().getNombre());
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+                ;
             } else {
                 Log.i("SESION","iniciarSesion() FAIL!");
                 showProgress(false);
