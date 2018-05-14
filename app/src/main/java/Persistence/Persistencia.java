@@ -31,6 +31,7 @@ public class Persistencia {
     private Usuario usuario;
     private Usuario usuarioModificado;
     private String keyUsuario;
+    private String keyAveria;
     FirebaseAuth mAuth;
     //mAuth2 es para hacer gestiones de usuarios sin logear cada vez
     FirebaseAuth mAuth2;
@@ -100,9 +101,8 @@ public class Persistencia {
 
     public void setAveriaToModificar(Averia averia){ averiaToModificar=averia;}
 
-    public void guardaAveriaModificada(String key, Averia averia){
-        averia.setUser(averiaToModificar.getUser());
-        myRefaverias.child(key).setValue(averia);
+    public void guardaAveriaModificada( Averia averia){
+        myRefaverias.child(keyAveria).setValue(averia);
     }
 
     public void eliminaAveria(String key){
@@ -190,4 +190,19 @@ public void eliminaUsuario(){
 
     }
 
+    public String getKeyAveria() {
+        return keyAveria;
+    }
+
+    public void setKeyAveria(String keyAveria) {
+        this.keyAveria = keyAveria;
+    }
+
+    public Averia getAveriaToModificar() {
+        return averiaToModificar;
+    }
+
+    public Averia getAveria() {
+        return averia;
+    }
 }

@@ -1,10 +1,10 @@
 package com.example.power.fixthefault;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -21,15 +21,16 @@ import Logic.Session;
 import Persistence.Persistencia;
 
 public class Main2Activity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,BlankFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener,Fragment_Averias_Principal.OnFragmentInteractionListener {
 
     FragmentManager fragmentManager;
+    Persistencia persistencia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        Persistencia persistencia = Persistencia.getInstance();
+        persistencia = Persistencia.getInstance();
         persistencia.creaAuthparaUsers(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -55,7 +56,7 @@ public class Main2Activity extends AppCompatActivity
         TextView nombreUsuario = navigationView.getHeaderView(0).findViewById(R.id.topMenu_nombreUsuario);
         Session sesion = Session.getInstance();
         nombreUsuario.setText(sesion.getUser().getNombre());
-        fragmentManager.beginTransaction().replace(R.id.contenedor,new BlankFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.contenedor,new Fragment_Averias_Principal()).commit();
     }
 
     @Override
@@ -99,14 +100,17 @@ public class Main2Activity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            fragmentManager.beginTransaction().replace(R.id.contenedor,new BlankFragment()).commit();
+            fragmentManager.beginTransaction().replace(R.id.contenedor,new Fragment_Averias_Principal()).commit();
         } else if (id == R.id.nav_usuarios) {
             fragmentManager.beginTransaction().replace(R.id.contenedor,new UsersFragment()).commit();
         } else if (id == R.id.nav_slideshow) {
+            fragmentManager.beginTransaction().replace(R.id.contenedor,new Fragment_Averias_SinPrioridad()).commit();
 
-
-        } else if (id == R.id.nav_share) {
-
+        } else if (id == R.id.nav_cerrarSesion) {
+            Session sesion = Session.getInstance();
+            sesion.cerrarSesion();
+            Intent intentNueva=new Intent(getApplicationContext(),LoginActivity.class);
+            startActivity(intentNueva);
 
         }
 

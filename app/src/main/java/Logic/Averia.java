@@ -19,8 +19,8 @@ public class Averia implements Serializable {
         this.descripcion=descripcion;
         this.user=user;
         fechaCreacion=new Date();
-        prioridad=-1;
-        estado="pendiente";
+        prioridad=5;
+        estado="En cola";
     }
 
     public Averia(){}
