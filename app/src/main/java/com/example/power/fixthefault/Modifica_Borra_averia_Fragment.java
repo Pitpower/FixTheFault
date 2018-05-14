@@ -1,7 +1,6 @@
 package com.example.power.fixthefault;
 
 
-import android.database.DataSetObserver;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,13 +13,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import Logic.AdapterSpinner;
 import Logic.Averia;
 import Logic.Session;
 import Persistence.Persistencia;
@@ -72,7 +71,7 @@ public class Modifica_Borra_averia_Fragment extends Fragment {
        sesion=Session.getInstance();
         if(!sesion.getUser().getRol().equals("Admin")){
             spinnerPrioridad.setEnabled(false);}
-        spinnerPrioridad.setAdapter(new Logic.SpinnerAdapter(getActivity()));
+        spinnerPrioridad.setAdapter(new AdapterSpinner(getActivity()));
 
 
         String[] estados = {"En cola","En ejecución","Pausa","Terminada"};

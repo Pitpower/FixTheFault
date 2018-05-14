@@ -90,7 +90,7 @@ public class UsersFragment extends Fragment implements AdapterUsers.OnItemClickL
 public void onClick(View v) {
 
             fragmentManager=getActivity().getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.contenedor,new RegistrarUsuario_fragment()).addToBackStack("usersfragment").commit();
+            fragmentManager.beginTransaction().replace(R.id.contenedor,new Usuario_Registrar_Fragment()).addToBackStack("usersfragment").commit();
         }
         });
     }

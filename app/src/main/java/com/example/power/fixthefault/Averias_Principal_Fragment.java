@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,24 +24,24 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import Logic.Adapter;
+import Logic.AdapterAverias;
 import Logic.Averia;
 import Persistence.Persistencia;
 
 
-public class Fragment_Averias_Principal extends Fragment implements Adapter.OnItemClickListener {
+public class Averias_Principal_Fragment extends Fragment implements AdapterAverias.OnItemClickListener {
     Persistencia persistencia;
     Button btnNueva;
     RecyclerView rv;
     List<Averia> averias;
     List<String> averiasKeys;
-    Adapter adapter;
+    AdapterAverias adapter;
     DatabaseReference myRef;
     Dialog myDialog;
     // TODO: Rename and change types of parameters
     FragmentManager fragmentManager;
 
-    public Fragment_Averias_Principal() {
+    public Averias_Principal_Fragment() {
         // Required empty public constructor
     }
 
@@ -61,16 +60,16 @@ public class Fragment_Averias_Principal extends Fragment implements Adapter.OnIt
         averias = new ArrayList<>();
         averiasKeys = new ArrayList<>();
 
-        adapter = new Adapter(averias);
+        adapter = new AdapterAverias(averias);
         rv.setAdapter(adapter);
-        adapter.setOnItemClickListener(Fragment_Averias_Principal.this);
+        adapter.setOnItemClickListener(Averias_Principal_Fragment.this);
         addListenerFirebase();
 
         btnNueva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.contenedor,new NuevaAveria_Frament()).addToBackStack("blankfragment").commit();
+                fragmentManager.beginTransaction().replace(R.id.contenedor,new Averia_Nueva_Fragment()).addToBackStack("blankfragment").commit();
             }
         });
     getActivity().setTitle("Averias");

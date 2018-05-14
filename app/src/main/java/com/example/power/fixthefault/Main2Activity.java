@@ -21,7 +21,7 @@ import Logic.Session;
 import Persistence.Persistencia;
 
 public class Main2Activity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,Fragment_Averias_Principal.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener,Averias_Principal_Fragment.OnFragmentInteractionListener {
 
     FragmentManager fragmentManager;
     Persistencia persistencia;
@@ -56,7 +56,7 @@ public class Main2Activity extends AppCompatActivity
         TextView nombreUsuario = navigationView.getHeaderView(0).findViewById(R.id.topMenu_nombreUsuario);
         Session sesion = Session.getInstance();
         nombreUsuario.setText(sesion.getUser().getNombre());
-        fragmentManager.beginTransaction().replace(R.id.contenedor,new Fragment_Averias_Principal()).commit();
+        fragmentManager.beginTransaction().replace(R.id.contenedor,new Averias_Principal_Fragment()).commit();
     }
 
     @Override
@@ -100,11 +100,11 @@ public class Main2Activity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            fragmentManager.beginTransaction().replace(R.id.contenedor,new Fragment_Averias_Principal()).commit();
+            fragmentManager.beginTransaction().replace(R.id.contenedor,new Averias_Principal_Fragment()).commit();
         } else if (id == R.id.nav_usuarios) {
             fragmentManager.beginTransaction().replace(R.id.contenedor,new UsersFragment()).commit();
         } else if (id == R.id.nav_slideshow) {
-            fragmentManager.beginTransaction().replace(R.id.contenedor,new Fragment_Averias_SinPrioridad()).commit();
+            fragmentManager.beginTransaction().replace(R.id.contenedor,new Averias_SinPrioridad_Fragment()).commit();
 
         } else if (id == R.id.nav_cerrarSesion) {
             Session sesion = Session.getInstance();
