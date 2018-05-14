@@ -11,12 +11,12 @@ import com.example.power.fixthefault.R;
 
 import java.util.ArrayList;
 
-public class SpinnerAdapter extends BaseAdapter
+public class AdapterSpinner extends BaseAdapter
 {
     ArrayList<Integer> colors;
     Context context;
 
-    public SpinnerAdapter(Context context)
+    public AdapterSpinner(Context context)
     {
         this.context=context;
         colors=new ArrayList<Integer>();

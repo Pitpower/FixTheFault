@@ -6,7 +6,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import Logic.Averia;
 
-public class Fragment_Averias_SinPrioridad extends Fragment_Averias_Principal{
+public class Averias_SinPrioridad_Fragment extends Averias_Principal_Fragment {
 
 @Override
     public void addListenerFirebase(){

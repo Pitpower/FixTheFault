@@ -1,32 +1,24 @@
 package Logic;
 
-import android.content.Intent;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.power.fixthefault.Main2Activity;
 import com.example.power.fixthefault.R;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.AveriasviewHolder>{
+public class AdapterAverias extends RecyclerView.Adapter<AdapterAverias.AveriasviewHolder>{
     private OnItemClickListener mlistener;
     List<Averia> averias;
 
-    public Adapter(List<Averia> averias) {
+    public AdapterAverias(List<Averia> averias) {
 
         this.averias = averias;
     }
