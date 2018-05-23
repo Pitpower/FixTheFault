@@ -3,33 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <item android:title="Averias">
+    <item android:title="Averías">
         <menu>
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/all"
             android:title="Principal" />
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/current"
             android:title="En curso" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/recents"
             android:title="Recientes" />
         <item
             android:id="@+id/nav_usuarios"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/users"
             android:title="Usuarios" />
     </group>
         </menu></item>
 
-    <item android:title="Communicate">
+    <item android:title="Otros">
         <menu>
             <item
                 android:id="@+id/nav_cerrarSesion"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/logout"
                 android:title="Cerrar sesión" />
 
         </menu>

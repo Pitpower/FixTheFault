@@ -73,9 +73,9 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundLayerName" value="background_bombilla2" />
-                                      <entry key="foregroundImage" value="C:\Users\power\Downloads\logoBombilla2.png" />
+                                      <entry key="foregroundImage" value="C:\Users\borja\Pictures\logout.png" />
                                       <entry key="foregroundLayerName" value="foreground_bombilla2" />
-                                      <entry key="outputName" value="logo_bombilla2" />
+                                      <entry key="outputName" value="logo_test" />
                                       <entry key="previewDensity" value="XXXHIGH" />
                                     </map>
                                   </option>

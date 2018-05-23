@@ -1,6 +1,9 @@
 package com.example.power.fixthefault;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -31,7 +34,7 @@ public class Modifica_Borra_averia_Fragment extends Fragment {
     String descripcion;
     TextView etiquetaCreador;
     TextView creadorFijo;
-   EditText editableLugar,editableDescripcion;
+    EditText editableLugar,editableDescripcion;
     Button btnguardar;
     Button btneliminar;
     Button btnprioridad;
@@ -115,8 +118,18 @@ public class Modifica_Borra_averia_Fragment extends Fragment {
     btneliminar.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            persistencia.eliminaAveria(key);
-            getFragmentManager().popBackStack();
+            new AlertDialog.Builder(getContext())
+                    .setMessage("¿Está seguro de que desea cerrar sesión?")
+                    .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            persistencia.eliminaAveria(key);
+                            getFragmentManager().popBackStack();
+                        }
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
+
         }
     });
         ((Main2Activity)getActivity()).hideFab();
