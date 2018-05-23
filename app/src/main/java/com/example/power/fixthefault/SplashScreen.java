@@ -57,9 +57,7 @@ public class SplashScreen extends AppCompatActivity {
 
             @Override
             public void run() {
-        mAuthListener=new FirebaseAuth.AuthStateListener(){
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
                 FirebaseUser user = mAuth.getCurrentUser();
                 if(user!=null) {
                     Log.i("SESION INICIADA","Statechange- Usuario logeado:"+user.getEmail().toString());
@@ -71,7 +69,7 @@ public class SplashScreen extends AppCompatActivity {
                             sesion.setUser(usuario);
                             Intent intentNueva=new Intent(getApplicationContext(), Main2Activity.class);
                             startActivity(intentNueva);
-                            // Log.i("Objeto","usuario="+sesion.getUser().getNombre());
+                            finish();
                         }
 
                         @Override
@@ -98,11 +96,11 @@ public class SplashScreen extends AppCompatActivity {
 
                     Intent intentNueva=new Intent(getApplicationContext(),LoginActivity.class);
                     startActivity(intentNueva);
+                    finish();
                 }
-            }
+
         };
-        mAuth.addAuthStateListener(mAuthListener);
-            }},SPLASH_TIME_OUT);
+            },SPLASH_TIME_OUT);
 
 
 

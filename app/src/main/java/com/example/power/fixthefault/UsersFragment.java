@@ -84,6 +84,7 @@ public class UsersFragment extends Fragment implements AdapterUsers.OnItemClickL
 
             }
         });
+        ((Main2Activity)getActivity()).showFab();
 
         btnNueva.setOnClickListener(new View.OnClickListener() {
 @Override

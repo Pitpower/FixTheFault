@@ -25,7 +25,8 @@ public class Main2Activity extends AppCompatActivity
 
     FragmentManager fragmentManager;
     Persistencia persistencia;
-
+    FloatingActionButton fab;
+    int state;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,13 +36,16 @@ public class Main2Activity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         fragmentManager = getSupportFragmentManager();
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        state=0;
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if(state==0)
+                fragmentManager.beginTransaction().replace(R.id.contenedor,new Averia_Nueva_Fragment()).addToBackStack("blankfragment").commit();
+                else
+                    fragmentManager.beginTransaction().replace(R.id.contenedor,new Usuario_Registrar_Fragment()).addToBackStack("blankfragment").commit();
             }
         });
 
@@ -100,10 +104,13 @@ public class Main2Activity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
+            state=0;
             fragmentManager.beginTransaction().replace(R.id.contenedor,new Averias_Principal_Fragment()).commit();
         } else if (id == R.id.nav_usuarios) {
+            state=1;
             fragmentManager.beginTransaction().replace(R.id.contenedor,new UsersFragment()).commit();
         } else if (id == R.id.nav_slideshow) {
+            state=0;
             fragmentManager.beginTransaction().replace(R.id.contenedor,new Averias_SinPrioridad_Fragment()).commit();
 
         } else if (id == R.id.nav_cerrarSesion) {
@@ -111,7 +118,7 @@ public class Main2Activity extends AppCompatActivity
             sesion.cerrarSesion();
             Intent intentNueva=new Intent(getApplicationContext(),LoginActivity.class);
             startActivity(intentNueva);
-
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -124,6 +131,7 @@ public class Main2Activity extends AppCompatActivity
     public void onFragmentInteraction(Uri uri) {
 
     }
-
+public void hideFab(){fab.hide();}
+public void showFab(){fab.show();}
 
 }
