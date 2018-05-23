@@ -75,7 +75,7 @@ public class Usuario_Registrar_Fragment extends Fragment {
                 getFragmentManager().popBackStack();
             }
         });
-
+        ((Main2Activity)getActivity()).hideFab();
     }
 
     @Override

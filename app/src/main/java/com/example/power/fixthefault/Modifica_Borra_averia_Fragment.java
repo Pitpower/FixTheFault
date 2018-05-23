@@ -119,7 +119,7 @@ public class Modifica_Borra_averia_Fragment extends Fragment {
             getFragmentManager().popBackStack();
         }
     });
-
+        ((Main2Activity)getActivity()).hideFab();
     }
 
     public interface OnFragmentInteractionListener {

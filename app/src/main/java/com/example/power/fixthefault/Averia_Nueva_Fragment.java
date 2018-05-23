@@ -57,7 +57,7 @@ public class Averia_Nueva_Fragment extends Fragment {
                 getFragmentManager().popBackStack();
             }
         });
-
+        ((Main2Activity)getActivity()).hideFab();
     }
 
 

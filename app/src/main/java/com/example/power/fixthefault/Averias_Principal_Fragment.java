@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -53,7 +54,6 @@ public class Averias_Principal_Fragment extends Fragment implements AdapterAveri
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("averias");
         persistencia = Persistencia.getInstance();
-
         btnNueva = (Button)getView().findViewById(R.id.btn_nueva);
         rv = (RecyclerView) getView().findViewById(R.id.pruebarecicler);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -73,6 +73,7 @@ public class Averias_Principal_Fragment extends Fragment implements AdapterAveri
             }
         });
     getActivity().setTitle("Averias");
+        ((Main2Activity)getActivity()).showFab();
     }
 
 
