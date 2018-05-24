@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import Logic.Averia;
+import Logic.Controlador;
 import Logic.Usuario;
 import Persistence.Persistencia;
 
@@ -30,11 +31,10 @@ public class Modifica_Borra_usuario_Fragment extends Fragment {
     Persistencia persistencia;
     Spinner spinner;
     Usuario usuario;
+    Controlador controlador;
 
 
-    public Modifica_Borra_usuario_Fragment() {
-        // Required empty public constructor
-    }
+    public Modifica_Borra_usuario_Fragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,14 +48,14 @@ public class Modifica_Borra_usuario_Fragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         getActivity().setTitle("Modificar usuario");
         persistencia = Persistencia.getInstance();
-        usuario = persistencia.getUsuario();
+        controlador=Controlador.getInstance();
+        usuario = controlador.getUsuarioSelecionado();
         editableNombre = (EditText)getActivity().findViewById(R.id.editText_fragment_nombre);
         editablePassword = (EditText)getActivity().findViewById(R.id.editText_fragment_password);
         btnguardar = (Button)getActivity().findViewById(R.id.btn_fragment_guardar);
         btneliminar = (Button)getActivity().findViewById(R.id.btn_fragment_eliminar);
         email = (TextView)getActivity().findViewById(R.id.textview_email);
         spinner = (Spinner)getActivity().findViewById(R.id.spinner_rol);
-
         editableNombre.setText(usuario.getNombre());
         editablePassword.setText(usuario.getPassword());
         email.setText(usuario.getEmail());
@@ -65,16 +65,13 @@ public class Modifica_Borra_usuario_Fragment extends Fragment {
         ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter(); //cast to an ArrayAdapter
         int spinnerPosition = myAdap.getPosition(myString);
         spinner.setSelection(spinnerPosition);
-
         btnguardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 usuario.setNombre(editableNombre.getText().toString());
                 usuario.setPassword(editablePassword.getText().toString());
                 usuario.setRol((String) spinner.getSelectedItem());
-                persistencia.setUsuarioModificado(usuario);
-                persistencia.guardaUsuario();
-
+                controlador.guardaUsuario(usuario);
                 getFragmentManager().popBackStack();
 
             }
@@ -83,7 +80,7 @@ public class Modifica_Borra_usuario_Fragment extends Fragment {
         btneliminar.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            persistencia.eliminaUsuario();
+            controlador.eliminarUsuario();
             getFragmentManager().popBackStack();
         }
     });
@@ -91,7 +88,6 @@ public class Modifica_Borra_usuario_Fragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

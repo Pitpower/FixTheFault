@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import Logic.Averia;
+import Logic.Controlador;
 import Logic.Session;
 
 
@@ -25,7 +26,7 @@ public class Averia_Nueva_Fragment extends Fragment {
     TextView textviewLugar,textviewDescripcion;
     EditText editextLugar,editextDescripcion;
     Button guardar;
-    Session sesion;
+    Controlador controlador;
 
     private OnFragmentInteractionListener mListener;
 
@@ -36,30 +37,22 @@ public class Averia_Nueva_Fragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         getActivity().setTitle("Nueva avería");
-        sesion = Session.getInstance();
-        Log.i("Usuario",sesion.getUser().getNombre());
+        controlador=Controlador.getInstance();
         textviewLugar = (TextView)getView().findViewById(R.id.textview_fragment_nueva_lugar);
         textviewDescripcion = (TextView)getView().findViewById(R.id.textview_fragment_nueva_descripcion);
         guardar = (Button)getView().findViewById(R.id.btn_fragment_nueva_guardar);
         editextLugar = (EditText)getView().findViewById(R.id.editext_fragment_nueva_lugar);
         editextDescripcion = (EditText)getView().findViewById(R.id.editext_fragment_nueva_descripcion);
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = database.getReference("averias");
-
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Averia averia = new Averia(editextLugar.getText().toString(),editextDescripcion.getText().toString(),sesion.getUser());
-                myRef.push().setValue(averia);
-                Log.i("Usuario",sesion.getUser().getNombre());
-
+                Averia averia = new Averia(editextLugar.getText().toString(),editextDescripcion.getText().toString(),controlador.getUsuarioLogeado());
+                controlador.guardaNuevaAveria(averia);
                 getFragmentManager().popBackStack();
             }
         });
         ((Main2Activity)getActivity()).hideFab();
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,9 +61,7 @@ public class Averia_Nueva_Fragment extends Fragment {
         return inflater.inflate(R.layout.fragment_nueva_averia, container, false);
     }
 
-
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

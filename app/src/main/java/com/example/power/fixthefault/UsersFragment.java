@@ -24,43 +24,45 @@ import java.util.List;
 
 import Logic.AdapterUsers;
 import Logic.Averia;
+import Logic.Controlador;
+import Logic.FabricaAdaptadores;
 import Logic.Usuario;
 import Persistence.Persistencia;
 
 
 
+
 public class UsersFragment extends Fragment implements AdapterUsers.OnItemClickListener {
 
-    Persistencia persistencia;
     Button btnNueva;
     RecyclerView rv;
     List<Usuario> usuarios;
     List<String> usuariosKeys;
-    AdapterUsers adapter;
+    //AdapterUsers adapter;
+    AdapterUsers adaptador;
     DatabaseReference myRef;
-    // TODO: Rename and change types of parameters
     FragmentManager fragmentManager;
+    Controlador controlador;
 
-    public UsersFragment() {
-            // Required empty public constructor
-    }
+    public UsersFragment() { }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         getActivity().setTitle("Usuarios");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("usuarios");
-        persistencia = Persistencia.getInstance();
-
+        controlador=Controlador.getInstance();
         btnNueva = (Button)getView().findViewById(R.id.btn_nueva_users);
         rv = (RecyclerView) getView().findViewById(R.id.reciclerUsers);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         usuarios = new ArrayList<>();
         usuariosKeys = new ArrayList<>();
+        FabricaAdaptadores fabrica=new FabricaAdaptadores();
+         adaptador= (AdapterUsers)fabrica.crearAdaptador(usuarios);
 
-        adapter = new AdapterUsers(usuarios);
-        rv.setAdapter(adapter);
-        adapter.setOnItemClickListener(UsersFragment.this);
+        //adapter = new AdapterUsers(usuarios);
+        rv.setAdapter(adaptador);
+        adaptador.setOnItemClickListener(UsersFragment.this);
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -76,7 +78,7 @@ public class UsersFragment extends Fragment implements AdapterUsers.OnItemClickL
                     usuariosKeys.add(key);
 
                 }
-                adapter.notifyDataSetChanged();
+                adaptador.notifyDataSetChanged();
             }
 
             @Override
@@ -100,13 +102,10 @@ public void onClick(View v) {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-            // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_users, container, false);
-
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
 
@@ -115,8 +114,8 @@ public void onClick(View v) {
 
         Usuario usuario=usuarios.get(position);
         String key=usuariosKeys.get(position);
-        persistencia.setUsuario(usuario);
-        persistencia.setKeyUsuario(key);
+        controlador.setUsuarioSelecionado(usuario);
+        controlador.setKeyUsuario(key);
         Modifica_Borra_usuario_Fragment fragment= new Modifica_Borra_usuario_Fragment();
         fragmentManager=getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.contenedor,fragment).addToBackStack("usersfragment").commit();

@@ -98,11 +98,13 @@ public class Persistencia {
         return averia;
 
     }
-
+    public void guardaNuevaAveria(Averia averia){
+        myRefaverias.push().setValue(averia);
+    }
     public void setAveriaToModificar(Averia averia){ averiaToModificar=averia;}
 
-    public void guardaAveriaModificada( Averia averia){
-        myRefaverias.child(keyAveria).setValue(averia);
+    public void guardaAveriaModificada( Averia averia, String key){
+        myRefaverias.child(key).setValue(averia);
     }
 
     public void eliminaAveria(String key){
@@ -156,8 +158,8 @@ public class Persistencia {
 
     }
 
-    public void guardaUsuario(){
-        myRefusuarios.child(keyUsuario).setValue(usuario);
+    public void guardaUsuario(String key, Usuario usuario){
+        myRefusuarios.child(key).setValue(usuario);
     }
 
     public String getKeyUsuario() {
@@ -175,19 +177,18 @@ public class Persistencia {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-public void eliminaUsuario(){
-       mAuth2.signInWithEmailAndPassword(usuario.getEmail(),usuario.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-        @Override
-        public void onComplete(@NonNull Task<AuthResult> task) {
-            if(task.isSuccessful()){}
-            FirebaseUser user = mAuth2.getCurrentUser();
-            user.delete();
-            myRefusuarios.child(keyUsuario).setValue(null);
 
-        }
-    });
-
-
+    public void eliminaUsuario(String key, Usuario usuario){
+        final String userKey = key;
+         mAuth2.signInWithEmailAndPassword(usuario.getEmail(),usuario.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+             @Override
+             public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                FirebaseUser user = mAuth2.getCurrentUser();
+                user.delete();
+                myRefusuarios.child(userKey).setValue(null);}
+            }
+         });
     }
 
     public String getKeyAveria() {

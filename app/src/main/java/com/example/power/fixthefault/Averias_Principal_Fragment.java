@@ -27,11 +27,12 @@ import java.util.List;
 
 import Logic.AdapterAverias;
 import Logic.Averia;
+import Logic.Controlador;
 import Persistence.Persistencia;
 
 
 public class Averias_Principal_Fragment extends Fragment implements AdapterAverias.OnItemClickListener {
-    Persistencia persistencia;
+    Controlador controlador;
     Button btnNueva;
     RecyclerView rv;
     List<Averia> averias;
@@ -39,27 +40,21 @@ public class Averias_Principal_Fragment extends Fragment implements AdapterAveri
     AdapterAverias adapter;
     DatabaseReference myRef;
     Dialog myDialog;
-    // TODO: Rename and change types of parameters
     FragmentManager fragmentManager;
 
-    public Averias_Principal_Fragment() {
-        // Required empty public constructor
-    }
+    public Averias_Principal_Fragment() { }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
-
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("averias");
-        persistencia = Persistencia.getInstance();
+        controlador = Controlador.getInstance();
         btnNueva = (Button)getView().findViewById(R.id.btn_nueva);
         rv = (RecyclerView) getView().findViewById(R.id.pruebarecicler);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         averias = new ArrayList<>();
         averiasKeys = new ArrayList<>();
-
         adapter = new AdapterAverias(averias);
         rv.setAdapter(adapter);
         adapter.setOnItemClickListener(Averias_Principal_Fragment.this);
@@ -76,11 +71,9 @@ public class Averias_Principal_Fragment extends Fragment implements AdapterAveri
         ((Main2Activity)getActivity()).showFab();
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_blank, container, false);
     }
 
@@ -91,27 +84,22 @@ public class Averias_Principal_Fragment extends Fragment implements AdapterAveri
     public void onBtnClick(int position) {
         Averia averia = averias.get(position);
         String key = averiasKeys.get(position);
-        persistencia.setAveriaToModificar(averia);
-        persistencia.setKeyAveria(key);
+        controlador.setAveriaSeleccionada(averia);
+        controlador.setKeyAveria(key);
 
         myDialog = new Dialog(getActivity());
         ShowPopup(getView());
-
     }
-
-
 
     @Override
     public void onItemClick(int position) {
-
         Averia averia = averias.get(position);
         String key = averiasKeys.get(position);
-        persistencia.setAveriaToModificar(averia);
-        persistencia.setKeyAveria(key);
+        controlador.setAveriaSeleccionada(averia);
+        controlador.setKeyAveria(key);
         Modifica_Borra_averia_Fragment fragment = new Modifica_Borra_averia_Fragment();
         fragmentManager = getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.contenedor,fragment).addToBackStack("blankfragment").commit();
-
     }
 
     public void addListenerFirebase(){
@@ -124,11 +112,8 @@ public class Averias_Principal_Fragment extends Fragment implements AdapterAveri
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Averia averia = snapshot.getValue(Averia.class);
                     String key = snapshot.getKey();
-
                     averias.add(averia);
                     averiasKeys.add(key);}
-
-
                 adapter.notifyDataSetChanged();
             }
 
@@ -150,45 +135,45 @@ public class Averias_Principal_Fragment extends Fragment implements AdapterAveri
         urgente.setOnClickListener(new View.OnClickListener() {
             @Override
                 public void onClick(View v) {
-                    Averia averia=persistencia.getAveriaToModificar();
+                    Averia averia=controlador.getAveriaSeleccionada();
                     averia.setPrioridad(4);
-                    persistencia.guardaAveriaModificada(averia);
+                    controlador.guardaAveria(averia);
                     myDialog.dismiss();
                     }
                 });
         moderada.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Averia averia=persistencia.getAveriaToModificar();
+                Averia averia=controlador.getAveriaSeleccionada();
                 averia.setPrioridad(3);
-                persistencia.guardaAveriaModificada(averia);
+                controlador.guardaAveria(averia);
                 myDialog.dismiss();
             }
         });
         media.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Averia averia=persistencia.getAveriaToModificar();
+                Averia averia=controlador.getAveriaSeleccionada();
                 averia.setPrioridad(2);
-                persistencia.guardaAveriaModificada(averia);
+                controlador.guardaAveria(averia);
                 myDialog.dismiss();
             }
         });
         leve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Averia averia=persistencia.getAveriaToModificar();
+                Averia averia=controlador.getAveriaSeleccionada();
                 averia.setPrioridad(1);
-                persistencia.guardaAveriaModificada(averia);
+                controlador.guardaAveria(averia);
                 myDialog.dismiss();
             }
         });
         baja.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Averia averia=persistencia.getAveriaToModificar();
+                Averia averia=controlador.getAveriaSeleccionada();
                 averia.setPrioridad(0);
-                persistencia.guardaAveriaModificada(averia);
+                controlador.guardaAveria(averia);
                 myDialog.dismiss();
             }
         });

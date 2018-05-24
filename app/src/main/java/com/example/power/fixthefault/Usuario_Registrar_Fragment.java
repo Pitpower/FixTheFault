@@ -20,34 +20,27 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import Logic.Averia;
+import Logic.Controlador;
 import Logic.Session;
 import Logic.Usuario;
 import Persistence.Persistencia;
 
 
 public class Usuario_Registrar_Fragment extends Fragment {
-    TextView textviewLugar,textviewDescripcion;
     EditText editextNombre,editextEmail,editextPassword;
     Spinner spinner;
     Button guardar;
-    Session sesion;
-    Persistencia persistencia;
-
+    Controlador controlador;
 
     private OnFragmentInteractionListener mListener;
 
     public Usuario_Registrar_Fragment() {
-        // Required empty public constructor
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         getActivity().setTitle("Nuevo usuario");
-        sesion = Session.getInstance();
-        persistencia = Persistencia.getInstance();
-        Log.i("Usuario",sesion.getUser().getNombre());
-        //textviewLugar=(TextView)getView().findViewById(R.id.textview_fragment_nueva_lugar);
-       // textviewDescripcion=(TextView)getView().findViewById(R.id.textview_fragment_nueva_descripcion);
+        controlador = Controlador.getInstance();
         guardar = (Button)getView().findViewById(R.id.btn_fragment_nueva_guardar);
         editextNombre = (EditText)getView().findViewById(R.id.editext_fragment_nueva_nombre);
         editextEmail = (EditText)getView().findViewById(R.id.editext_fragment_nueva_email);
@@ -55,9 +48,6 @@ public class Usuario_Registrar_Fragment extends Fragment {
         spinner = (Spinner)getView().findViewById(R.id.spinner_usuario);
         String[] roles = {"Admin","tecnico","normal"};
         spinner.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, roles));
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = database.getReference("averias");
-
 
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,8 +59,7 @@ public class Usuario_Registrar_Fragment extends Fragment {
 
 
                 Usuario user = new Usuario(nombre,email,rol,password);
-                persistencia.registrarUsuario(user);
-               // Log.i("Usuario",sesion.getUser().getNombre());
+                controlador.registrarUsuario(user);
 
                 getFragmentManager().popBackStack();
             }
@@ -81,14 +70,11 @@ public class Usuario_Registrar_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.registrar_usuario_fragment, container, false);
     }
 
 
-
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

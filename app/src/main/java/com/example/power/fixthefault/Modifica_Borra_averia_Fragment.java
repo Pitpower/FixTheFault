@@ -24,11 +24,13 @@ import java.util.Locale;
 
 import Logic.AdapterSpinner;
 import Logic.Averia;
+import Logic.Controlador;
 import Logic.Session;
 import Persistence.Persistencia;
 
 
 public class Modifica_Borra_averia_Fragment extends Fragment {
+    Controlador controlador;
     String key;
     String lugar;
     String descripcion;
@@ -38,22 +40,20 @@ public class Modifica_Borra_averia_Fragment extends Fragment {
     Button btnguardar;
     Button btneliminar;
     Button btnprioridad;
-    Persistencia persistencia;
     Averia averia;
     Spinner spinner;
     Spinner spinnerPrioridad;
     Session sesion;
 
     public Modifica_Borra_averia_Fragment() {
-        // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        persistencia = Persistencia.getInstance();
-        averia = persistencia.getAveriaToModificar();
-        key = persistencia.getKeyAveria();
+        controlador = Controlador.getInstance();
+        averia = controlador.getAveriaSeleccionada();
+        key = controlador.getKeyAveria();
         lugar = averia.getUbicacion();
         descripcion = averia.getDescripcion();
         return inflater.inflate(R.layout.fragment_modifica__borra_averia, container, false);
@@ -109,7 +109,7 @@ public class Modifica_Borra_averia_Fragment extends Fragment {
                 averia.setDescripcion(descripcion);
                 averia.setEstado(estado);
                 averia.setPrioridad(prioridad);
-                persistencia.guardaAveriaModificada(averia);
+                controlador.guardaAveria(averia);
                 getFragmentManager().popBackStack();
 
             }
@@ -123,7 +123,7 @@ public class Modifica_Borra_averia_Fragment extends Fragment {
                     .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            persistencia.eliminaAveria(key);
+                            controlador.eliminaAveria();
                             getFragmentManager().popBackStack();
                         }
                     })
