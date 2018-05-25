@@ -7,15 +7,15 @@
         <menu>
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_principal"
             android:icon="@drawable/all"
             android:title="Principal" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_current"
             android:icon="@drawable/current"
             android:title="En curso" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_recents"
             android:icon="@drawable/recents"
             android:title="Recientes" />
         <item

@@ -119,7 +119,7 @@ public class Modifica_Borra_averia_Fragment extends Fragment {
         @Override
         public void onClick(View v) {
             new AlertDialog.Builder(getContext())
-                    .setMessage("¿Está seguro de que desea cerrar sesión?")
+                    .setMessage("¿Está seguro de que desea eliminar esta avería?")
                     .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

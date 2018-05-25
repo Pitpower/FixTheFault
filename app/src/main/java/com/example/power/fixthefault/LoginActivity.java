@@ -75,13 +75,13 @@ public class LoginActivity extends AppCompatActivity  {
             }
         });
 
-        //Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-//        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                attemptLogin();
-//            }
-//        });
+        /*Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                attemptLogin();
+            }
+         });*/
         signinImage.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

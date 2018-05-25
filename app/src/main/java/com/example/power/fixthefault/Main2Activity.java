@@ -1,5 +1,7 @@
 package com.example.power.fixthefault;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -103,22 +105,31 @@ public class Main2Activity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_principal) {
             state=0;
             fragmentManager.beginTransaction().replace(R.id.contenedor,new Averias_Principal_Fragment()).commit();
         } else if (id == R.id.nav_usuarios) {
             state=1;
             fragmentManager.beginTransaction().replace(R.id.contenedor,new UsersFragment()).commit();
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_recents) {
             state=0;
             fragmentManager.beginTransaction().replace(R.id.contenedor,new Averias_SinPrioridad_Fragment()).commit();
 
         } else if (id == R.id.nav_cerrarSesion) {
-            Session sesion = Session.getInstance();
-            sesion.cerrarSesion();
-            Intent intentNueva=new Intent(getApplicationContext(),LoginActivity.class);
-            startActivity(intentNueva);
-            finish();
+            new AlertDialog.Builder(this)
+                    .setMessage("¿Está seguro de que desea cerrar sesión?")
+                    .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Session sesion = Session.getInstance();
+                            sesion.cerrarSesion();
+                            Intent intentNueva=new Intent(getApplicationContext(),LoginActivity.class);
+                            startActivity(intentNueva);
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
