@@ -6,9 +6,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import Logic.Averia;
 
-public class Averias_SinPrioridad_Fragment extends Averias_Principal_Fragment {
+public class Averias_enCurso_Fragment extends Averias_Principal_Fragment {
     @Override
-    public void setTitle(){getActivity().setTitle("Sin prioridad");}
+    public void setTitle(){getActivity().setTitle("En curso");}
 @Override
     public void addListenerFirebase(){
         myRef.addValueEventListener(new ValueEventListener() {
@@ -20,7 +20,7 @@ public class Averias_SinPrioridad_Fragment extends Averias_Principal_Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Averia averia = snapshot.getValue(Averia.class);
                     String key = snapshot.getKey();
-                    if(averia.getPrioridad()==5 && !averia.getEstado().equals("Terminada")){
+                    if(averia.getEstado().equals("En ejecución")){
                     averias.add(averia);
                     averiasKeys.add(key);}}
 

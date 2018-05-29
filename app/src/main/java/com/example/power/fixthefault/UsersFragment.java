@@ -34,7 +34,6 @@ import Persistence.Persistencia;
 
 public class UsersFragment extends Fragment implements AdapterUsers.OnItemClickListener {
 
-    Button btnNueva;
     RecyclerView rv;
     List<Usuario> usuarios;
     List<String> usuariosKeys;
@@ -51,14 +50,13 @@ public class UsersFragment extends Fragment implements AdapterUsers.OnItemClickL
         getActivity().setTitle("Usuarios");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("usuarios");
-        controlador=Controlador.getInstance();
-        btnNueva = (Button)getView().findViewById(R.id.btn_nueva_users);
+        controlador = Controlador.getInstance();
         rv = (RecyclerView) getView().findViewById(R.id.reciclerUsers);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         usuarios = new ArrayList<>();
         usuariosKeys = new ArrayList<>();
-        FabricaAdaptadores fabrica=new FabricaAdaptadores();
-         adaptador= (AdapterUsers)fabrica.crearAdaptador(usuarios);
+        FabricaAdaptadores fabrica = new FabricaAdaptadores();
+        adaptador = (AdapterUsers) fabrica.crearAdaptador(usuarios);
 
         //adapter = new AdapterUsers(usuarios);
         rv.setAdapter(adaptador);
@@ -86,16 +84,7 @@ public class UsersFragment extends Fragment implements AdapterUsers.OnItemClickL
 
             }
         });
-        ((Main2Activity)getActivity()).showFab();
-
-        btnNueva.setOnClickListener(new View.OnClickListener() {
-@Override
-public void onClick(View v) {
-
-            fragmentManager=getActivity().getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.contenedor,new Usuario_Registrar_Fragment()).addToBackStack("usersfragment").commit();
-        }
-        });
+        ((Main2Activity) getActivity()).showFab();
     }
 
 

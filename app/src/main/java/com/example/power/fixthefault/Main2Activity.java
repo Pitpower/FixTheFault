@@ -17,20 +17,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import Logic.Controlador;
 import Logic.Session;
 import Persistence.Persistencia;
 
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,Averias_Principal_Fragment.OnFragmentInteractionListener {
-
+    Controlador controlador;
     FragmentManager fragmentManager;
     Persistencia persistencia;
     FloatingActionButton fab;
     int state;
+    String estado;
+    DrawerLayout drawer;
+    NavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        controlador = Controlador.getInstance();
         persistencia = Persistencia.getInstance();
         persistencia.creaAuthparaUsers(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -49,17 +54,19 @@ public class Main2Activity extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         TextView nombreUsuario = navigationView.getHeaderView(0).findViewById(R.id.topMenu_nombreUsuario);
         Session sesion = Session.getInstance();
         nombreUsuario.setText(sesion.getUser().getNombre());
+        estado="En cola";
+        hideItem();
         fragmentManager.beginTransaction().replace(R.id.contenedor,new Averias_Principal_Fragment()).commit();
     }
 
@@ -103,13 +110,19 @@ public class Main2Activity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_principal) {
             state=0;
             fragmentManager.beginTransaction().replace(R.id.contenedor,new Averias_Principal_Fragment()).commit();
+        } else if (id == R.id.nav_terminadas) {
+            state=0;
+            fragmentManager.beginTransaction().replace(R.id.contenedor,new Averias_Terminadas_Fragment()).commit();
+        } else if (id == R.id.nav_curso) {
+            state=0;
+            fragmentManager.beginTransaction().replace(R.id.contenedor,new Averias_enCurso_Fragment()).commit();
         } else if (id == R.id.nav_usuarios) {
             state=1;
             fragmentManager.beginTransaction().replace(R.id.contenedor,new UsersFragment()).commit();
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_recientes) {
             state=0;
             fragmentManager.beginTransaction().replace(R.id.contenedor,new Averias_SinPrioridad_Fragment()).commit();
 
@@ -133,5 +146,12 @@ public class Main2Activity extends AppCompatActivity
     }
 public void hideFab(){fab.hide();}
 public void showFab(){fab.show();}
+public String getEstado(){return estado;}
+    private void hideItem()
+    {if(!controlador.getRolUsuario().equals("Admin")){
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.findItem(R.id.nav_usuarios).setVisible(false);
+        nav_Menu.findItem(R.id.nav_terminadas).setVisible(false);}
+    }
 
 }

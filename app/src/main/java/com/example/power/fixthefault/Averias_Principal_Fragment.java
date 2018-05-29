@@ -33,7 +33,6 @@ import Persistence.Persistencia;
 
 public class Averias_Principal_Fragment extends Fragment implements AdapterAverias.OnItemClickListener {
     Controlador controlador;
-    Button btnNueva;
     RecyclerView rv;
     List<Averia> averias;
     List<String> averiasKeys;
@@ -41,6 +40,7 @@ public class Averias_Principal_Fragment extends Fragment implements AdapterAveri
     DatabaseReference myRef;
     Dialog myDialog;
     FragmentManager fragmentManager;
+
 
     public Averias_Principal_Fragment() { }
 
@@ -50,7 +50,6 @@ public class Averias_Principal_Fragment extends Fragment implements AdapterAveri
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("averias");
         controlador = Controlador.getInstance();
-        btnNueva = (Button)getView().findViewById(R.id.btn_nueva);
         rv = (RecyclerView) getView().findViewById(R.id.pruebarecicler);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         averias = new ArrayList<>();
@@ -60,14 +59,7 @@ public class Averias_Principal_Fragment extends Fragment implements AdapterAveri
         adapter.setOnItemClickListener(Averias_Principal_Fragment.this);
         addListenerFirebase();
 
-        btnNueva.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.contenedor,new Averia_Nueva_Fragment()).addToBackStack("blankfragment").commit();
-            }
-        });
-    getActivity().setTitle("Averias");
+       setTitle();
         ((Main2Activity)getActivity()).showFab();
     }
 
@@ -82,13 +74,14 @@ public class Averias_Principal_Fragment extends Fragment implements AdapterAveri
     }
     @Override
     public void onBtnClick(int position) {
+        if(controlador.getRolUsuario().equals("Admin")){
         Averia averia = averias.get(position);
         String key = averiasKeys.get(position);
         controlador.setAveriaSeleccionada(averia);
         controlador.setKeyAveria(key);
 
         myDialog = new Dialog(getActivity());
-        ShowPopup(getView());
+        ShowPopup(getView());}
     }
 
     @Override
@@ -108,12 +101,14 @@ public class Averias_Principal_Fragment extends Fragment implements AdapterAveri
             public void onDataChange(DataSnapshot dataSnapshot) {
                 averias.removeAll(averias);
                 averiasKeys.removeAll(averiasKeys);
-
+                String estadoAveria;
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Averia averia = snapshot.getValue(Averia.class);
                     String key = snapshot.getKey();
+                    estadoAveria=averia.getEstado();
+                    if((!estadoAveria.equals("Terminada") || !estadoAveria.equals("En ejecución"))&& (averia.getPrioridad()!=5)){
                     averias.add(averia);
-                    averiasKeys.add(key);}
+                    averiasKeys.add(key);}}
                 adapter.notifyDataSetChanged();
             }
 
@@ -123,7 +118,9 @@ public class Averias_Principal_Fragment extends Fragment implements AdapterAveri
             }
         });}
 
-    public void ShowPopup(View v) {
+    public void setTitle(){ getActivity().setTitle("Averias");}
+
+        public void ShowPopup(View v) {
 
         Button urgente,moderada,media,leve,baja;
         myDialog.setContentView(R.layout.priority_popup);

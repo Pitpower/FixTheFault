@@ -7,17 +7,21 @@
         <menu>
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_principal"
             android:icon="@drawable/all"
             android:title="Principal" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_curso"
             android:icon="@drawable/current"
             android:title="En curso" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_recientes"
             android:icon="@drawable/recents"
             android:title="Recientes" />
+        <item
+            android:id="@+id/nav_terminadas"
+            android:icon="@drawable/ic_menu_share"
+            android:title="Terminadas" />
         <item
             android:id="@+id/nav_usuarios"
             android:icon="@drawable/users"

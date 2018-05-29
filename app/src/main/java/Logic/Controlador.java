@@ -81,4 +81,6 @@ public class Controlador {
     public void setKeyAveria(String keyAveria) {
         this.keyAveria = keyAveria;
     }
+
+    public String getRolUsuario(){return sesion.getUser().getRol();}
 }

@@ -133,6 +133,11 @@ public class Modifica_Borra_averia_Fragment extends Fragment {
         }
     });
         ((Main2Activity)getActivity()).hideFab();
+
+    if(!controlador.getRolUsuario().equals("Admin")){
+        btneliminar.setVisibility(view.INVISIBLE);
+    }
+
     }
 
     public interface OnFragmentInteractionListener {
