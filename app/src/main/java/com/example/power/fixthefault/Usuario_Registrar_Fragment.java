@@ -46,7 +46,7 @@ public class Usuario_Registrar_Fragment extends Fragment {
         editextEmail = (EditText)getView().findViewById(R.id.editext_fragment_nueva_email);
         editextPassword = (EditText)getView().findViewById(R.id.editText_password);
         spinner = (Spinner)getView().findViewById(R.id.spinner_usuario);
-        String[] roles = {"Admin","tecnico","normal"};
+        String[] roles = {"Admin","Técnico","Empleado"};
         spinner.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, roles));
 
         guardar.setOnClickListener(new View.OnClickListener() {

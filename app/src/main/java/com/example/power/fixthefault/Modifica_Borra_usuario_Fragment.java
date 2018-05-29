@@ -1,6 +1,8 @@
 package com.example.power.fixthefault;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -59,7 +61,7 @@ public class Modifica_Borra_usuario_Fragment extends Fragment {
         editableNombre.setText(usuario.getNombre());
         editablePassword.setText(usuario.getPassword());
         email.setText(usuario.getEmail());
-        String[] roles = {"Admin","tecnico","normal"};
+        String[] roles = {"Admin","Tecnico","Empleado"};
         spinner.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, roles));
         String myString = usuario.getRol(); //the value you want the position for
         ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter(); //cast to an ArrayAdapter
@@ -80,8 +82,17 @@ public class Modifica_Borra_usuario_Fragment extends Fragment {
         btneliminar.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            controlador.eliminarUsuario();
-            getFragmentManager().popBackStack();
+            new AlertDialog.Builder(getContext())
+                    .setMessage("¿Está seguro de que desea eliminar este usuario?")
+                    .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            controlador.eliminarUsuario();
+                            getFragmentManager().popBackStack();
+                        }
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
         }
     });
         ((Main2Activity)getActivity()).hideFab();

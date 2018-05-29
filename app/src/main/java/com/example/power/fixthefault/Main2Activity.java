@@ -65,8 +65,10 @@ public class Main2Activity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         TextView nombreUsuario = navigationView.getHeaderView(0).findViewById(R.id.topMenu_nombreUsuario);
+        TextView emailUsuario = navigationView.getHeaderView(0).findViewById(R.id.emailTextView);
         Session sesion = Session.getInstance();
         nombreUsuario.setText(sesion.getUser().getNombre());
+        emailUsuario.setText(sesion.getUser().getEmail());
         estado="En cola";
         hideItem();
         fragmentManager.beginTransaction().replace(R.id.contenedor,new Averias_Principal_Fragment()).commit();

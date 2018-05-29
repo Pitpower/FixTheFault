@@ -20,7 +20,7 @@
             android:title="Recientes" />
         <item
             android:id="@+id/nav_terminadas"
-            android:icon="@drawable/ic_menu_share"
+            android:icon="@drawable/finish"
             android:title="Terminadas" />
         <item
             android:id="@+id/nav_usuarios"

@@ -78,7 +78,7 @@ public class Modifica_Borra_averia_Fragment extends Fragment {
 
 
         String[] estados = {"En cola","En ejecución","Pausa","Terminada"};
-        if(sesion.getUser().getRol().equals("normal")){
+        if(sesion.getUser().getRol().equals("Empleado")){
             spinner.setEnabled(false);}
         spinner.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, estados));
        String estado= averia.getEstado();
