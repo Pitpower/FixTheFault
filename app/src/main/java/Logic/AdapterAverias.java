@@ -43,33 +43,28 @@ public class AdapterAverias extends RecyclerView.Adapter<AdapterAverias.Averiasv
 
     @Override
     public void onBindViewHolder(AveriasviewHolder holder, int position) {
-
         Averia averia = averias.get(position);
-
         holder.textViewLugar.setText(averia.getUbicacion());
         holder.textViewDescripcion.setText(averia.getDescripcion());
-        int prioridad=averia.getPrioridad();
-        if(prioridad==0)
-            holder.btn.setBackgroundColor(0xFF33B5E5);
-            else if(prioridad==1)
-                 holder.btn.setBackgroundColor(0xFF99CC00);
-                else if(prioridad==2)
-                     holder.btn.setBackgroundColor(Color.parseColor("#FFFF4D"));
-                     else if(prioridad==3)
-                         holder.btn.setBackgroundColor(0xFFFFBB33);
-                        else if(prioridad==4)
-                            holder.btn.setBackgroundColor(0xFFFF4444);
-                            else
-                                holder.btn.setBackgroundColor(Color.parseColor("#cccccc"));
-
-
+        holder.btn.setBackgroundColor(getColor(averia.getPrioridad()));
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-
-
         String fecha = dateFormat.format(averia.getFechaCreacion());
         holder.textViewFecha.setText(fecha);
+    }
 
-
+    private int getColor(int prioridad){
+        if(prioridad == 0)
+            return 0xFF33B5E5;
+            else if(prioridad==1)
+                return 0xFF99CC00;
+                else if(prioridad==2)
+                    return Color.parseColor("#FFFF4D");
+                    else if(prioridad==3)
+                        return 0xFFFFBB33;
+                        else if(prioridad==4)
+                            return 0xFFFF4444;
+         else
+            return Color.parseColor("#cccccc");
     }
 
 

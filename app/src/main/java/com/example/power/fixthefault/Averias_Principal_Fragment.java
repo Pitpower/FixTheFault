@@ -75,11 +75,8 @@ public class Averias_Principal_Fragment extends Fragment implements AdapterAveri
     @Override
     public void onBtnClick(int position) {
         if(controlador.getRolUsuario().equals("Admin")){
-        Averia averia = averias.get(position);
-        String key = averiasKeys.get(position);
-        controlador.setAveriaSeleccionada(averia);
-        controlador.setKeyAveria(key);
-
+        controlador.setAveriaSeleccionada(averias.get(position));
+        controlador.setKeyAveria(averiasKeys.get(position));
         myDialog = new Dialog(getActivity());
         ShowPopup(getView());}
     }
