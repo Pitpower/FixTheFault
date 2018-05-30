@@ -21,10 +21,9 @@ import android.widget.TextView;
 
 import Logic.Controlador;
 import Logic.Session;
-import Persistence.Persistencia;
 
 public class Principal_Activity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,Averias_Principal_Fragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener,Averias_Fragment.OnFragmentInteractionListener {
     Controlador controlador;
     FragmentManager fragmentManager;
     FloatingActionButton fab;

@@ -22,18 +22,13 @@ import Persistence.Persistencia;
 
 
 public class Usuarios_Modifica_Borra_Fragment extends Fragment {
-    String key;
-    String lugar;
-    String descripcion;
     EditText editableNombre,editablePassword;
     TextView email;
     Button btnguardar;
     Button btneliminar;
-    Persistencia persistencia;
     Spinner spinner;
     Usuario usuario;
     Controlador controlador;
-
 
     public Usuarios_Modifica_Borra_Fragment() { }
 
@@ -43,12 +38,9 @@ public class Usuarios_Modifica_Borra_Fragment extends Fragment {
         return inflater.inflate(R.layout.fragment_modifica__borra_usuario, container, false);
     }
 
-
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         getActivity().setTitle("Modificar usuario");
-        persistencia = Persistencia.getInstance();
         controlador=Controlador.getInstance();
         usuario = controlador.getUsuarioSelecionado();
         editableNombre = (EditText)getActivity().findViewById(R.id.editText_fragment_nombre);

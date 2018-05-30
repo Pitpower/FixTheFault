@@ -5,7 +5,7 @@
     android:id="@+id/blankfragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Averias_Principal_Fragment">
+    tools:context=".Averias_Fragment">
 
     <!-- TODO: Update blank fragment layout -->
 
