@@ -1,11 +1,13 @@
 package com.example.power.fixthefault;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,9 +48,19 @@ public class Averia_Nueva_Fragment extends Fragment {
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Averia averia = new Averia(editextLugar.getText().toString(),editextDescripcion.getText().toString(),controlador.getUsuarioLogeado());
-                controlador.guardaNuevaAveria(averia);
-                getFragmentManager().popBackStack();
+                String lugar = editextLugar.getText().toString();
+                String descripcion = editextDescripcion.getText().toString();
+
+                if(TextUtils.isEmpty(lugar) ||  TextUtils.isEmpty(descripcion)){
+                    new AlertDialog.Builder(getContext())
+                            .setMessage("Rellene todos los campos para añadir una avería")
+                            .setPositiveButton("Vale", null)
+                            .show();
+                } else {
+                    Averia averia = new Averia(editextLugar.getText().toString(), editextDescripcion.getText().toString(), controlador.getUsuarioLogeado());
+                    controlador.guardaNuevaAveria(averia);
+                    getFragmentManager().popBackStack();
+                }
             }
         });
         ((Main2Activity)getActivity()).hideFab();
