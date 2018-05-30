@@ -1,9 +1,13 @@
 package com.example.power.fixthefault;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,11 +51,17 @@ public class Usuario_Registrar_Fragment extends Fragment {
                 String password = editextPassword.getText().toString();
                 String rol = (String)spinner.getSelectedItem();
 
+                if(TextUtils.isEmpty(nombre) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
+                    new AlertDialog.Builder(getContext())
+                            .setMessage("Rellene todos los campos para añadir un usuario")
+                            .setPositiveButton("Vale", null)
+                            .show();
+                } else {
+                    Usuario user = new Usuario(nombre, email, rol, password);
+                    controlador.registrarUsuario(user);
 
-                Usuario user = new Usuario(nombre,email,rol,password);
-                controlador.registrarUsuario(user);
-
-                getFragmentManager().popBackStack();
+                    getFragmentManager().popBackStack();
+                }
             }
         });
         ((Principal_Activity)getActivity()).hideFab();

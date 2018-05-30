@@ -13,11 +13,6 @@ public class Controlador {
     private Averia averiaSeleccionada;
     private String keyAveria;
 
-
-
-
-
-
     public static Controlador getInstance() {
         return ourInstance;
     }
@@ -32,9 +27,11 @@ public class Controlador {
     public Usuario getUsuarioLogeado(){
         return sesion.getUser();
     }
+
     public void guardaNuevaAveria(Averia averia){
         persistencia.guardaNuevaAveria(averia);
     }
+
     public void guardaAveria(Averia averia){
         persistencia.guardaAveriaModificada(averia, keyAveria);
     }
@@ -45,9 +42,11 @@ public class Controlador {
     public void guardaUsuario(Usuario usuario){
         persistencia.guardaUsuario(keyUsuario, usuario);
     }
+
     public void eliminarUsuario(){
         persistencia.eliminaUsuario(keyUsuario,usuarioSelecionado);
     }
+
     public void registrarUsuario(Usuario usuario){
         persistencia.registrarUsuario(usuario);
 
