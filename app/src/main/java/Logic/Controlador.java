@@ -1,5 +1,7 @@
 package Logic;
 
+import android.content.Context;
+
 import Persistence.Persistencia;
 
 public class Controlador {
@@ -83,4 +85,8 @@ public class Controlador {
     }
 
     public String getRolUsuario(){return sesion.getUser().getRol();}
+
+    public void creaAuthparaUsers(Context context){
+        persistencia.creaAuthparaUsers(context);
+    };
 }

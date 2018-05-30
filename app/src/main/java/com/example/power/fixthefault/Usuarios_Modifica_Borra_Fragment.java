@@ -16,13 +16,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import Logic.Averia;
 import Logic.Controlador;
 import Logic.Usuario;
 import Persistence.Persistencia;
 
 
-public class Modifica_Borra_usuario_Fragment extends Fragment {
+public class Usuarios_Modifica_Borra_Fragment extends Fragment {
     String key;
     String lugar;
     String descripcion;
@@ -36,7 +35,7 @@ public class Modifica_Borra_usuario_Fragment extends Fragment {
     Controlador controlador;
 
 
-    public Modifica_Borra_usuario_Fragment() { }
+    public Usuarios_Modifica_Borra_Fragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,7 +94,7 @@ public class Modifica_Borra_usuario_Fragment extends Fragment {
                     .show();
         }
     });
-        ((Main2Activity)getActivity()).hideFab();
+        ((Principal_Activity)getActivity()).hideFab();
     }
 
     public interface OnFragmentInteractionListener {

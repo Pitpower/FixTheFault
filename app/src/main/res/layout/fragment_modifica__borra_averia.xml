@@ -5,7 +5,7 @@
     android:id="@+id/modificar_borrar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Modifica_Borra_averia_Fragment">
+    tools:context=".Averias_Modifica_Borra_Fragment">
 
     <TextView
         android:id="@+id/textview_fragment_lugar"

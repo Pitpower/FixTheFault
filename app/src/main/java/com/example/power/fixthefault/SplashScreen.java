@@ -1,16 +1,10 @@
 package com.example.power.fixthefault;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.CountDownTimer;
-import android.support.annotation.NonNull;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
@@ -67,7 +61,7 @@ public class SplashScreen extends AppCompatActivity {
                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                             Usuario usuario= (Usuario)dataSnapshot.getValue(Usuario.class);
                             sesion.setUser(usuario);
-                            Intent intentNueva=new Intent(getApplicationContext(), Main2Activity.class);
+                            Intent intentNueva=new Intent(getApplicationContext(), Principal_Activity.class);
                             startActivity(intentNueva);
                             finish();
                         }

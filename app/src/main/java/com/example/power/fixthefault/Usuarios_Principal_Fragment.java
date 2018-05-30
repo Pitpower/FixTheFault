@@ -1,6 +1,5 @@
 package com.example.power.fixthefault;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,16 +21,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Logic.AdapterUsers;
-import Logic.Averia;
 import Logic.Controlador;
 import Logic.FabricaAdaptadores;
 import Logic.Usuario;
-import Persistence.Persistencia;
 
 
-
-
-public class UsersFragment extends Fragment implements AdapterUsers.OnItemClickListener {
+public class Usuarios_Principal_Fragment extends Fragment implements AdapterUsers.OnItemClickListener {
 
     RecyclerView rv;
     List<Usuario> usuarios;
@@ -43,7 +37,7 @@ public class UsersFragment extends Fragment implements AdapterUsers.OnItemClickL
     FragmentManager fragmentManager;
     Controlador controlador;
 
-    public UsersFragment() { }
+    public Usuarios_Principal_Fragment() { }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -60,7 +54,7 @@ public class UsersFragment extends Fragment implements AdapterUsers.OnItemClickL
 
         //adapter = new AdapterUsers(usuarios);
         rv.setAdapter(adaptador);
-        adaptador.setOnItemClickListener(UsersFragment.this);
+        adaptador.setOnItemClickListener(Usuarios_Principal_Fragment.this);
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -84,7 +78,7 @@ public class UsersFragment extends Fragment implements AdapterUsers.OnItemClickL
 
             }
         });
-        ((Main2Activity) getActivity()).showFab();
+        ((Principal_Activity) getActivity()).showFab();
     }
 
 
@@ -105,7 +99,7 @@ public class UsersFragment extends Fragment implements AdapterUsers.OnItemClickL
         String key=usuariosKeys.get(position);
         controlador.setUsuarioSelecionado(usuario);
         controlador.setKeyUsuario(key);
-        Modifica_Borra_usuario_Fragment fragment= new Modifica_Borra_usuario_Fragment();
+        Usuarios_Modifica_Borra_Fragment fragment= new Usuarios_Modifica_Borra_Fragment();
         fragmentManager=getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.contenedor,fragment).addToBackStack("usersfragment").commit();
 

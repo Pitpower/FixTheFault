@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -150,7 +149,7 @@ public class LoginActivity extends AppCompatActivity  {
                         Usuario usuario= (Usuario)dataSnapshot.getValue(Usuario.class);
                         sesion.setUser(usuario);
                         showProgress(false);
-                        Intent intentNueva=new Intent(getApplicationContext(), Main2Activity.class);
+                        Intent intentNueva=new Intent(getApplicationContext(), Principal_Activity.class);
                         startActivity(intentNueva);
                         // Log.i("Objeto","usuario="+sesion.getUser().getNombre());
                     }

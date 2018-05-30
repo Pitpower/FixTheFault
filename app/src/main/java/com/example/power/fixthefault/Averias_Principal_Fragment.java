@@ -6,11 +6,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +28,7 @@ import java.util.List;
 import Logic.AdapterAverias;
 import Logic.Averia;
 import Logic.Controlador;
-import Persistence.Persistencia;
+import Logic.DialogPrioridad;
 
 
 public class Averias_Principal_Fragment extends Fragment implements AdapterAverias.OnItemClickListener {
@@ -60,7 +60,7 @@ public class Averias_Principal_Fragment extends Fragment implements AdapterAveri
         addListenerFirebase();
 
        setTitle();
-        ((Main2Activity)getActivity()).showFab();
+        ((Principal_Activity)getActivity()).showFab();
     }
 
     @Override
@@ -78,7 +78,11 @@ public class Averias_Principal_Fragment extends Fragment implements AdapterAveri
         controlador.setAveriaSeleccionada(averias.get(position));
         controlador.setKeyAveria(averiasKeys.get(position));
         myDialog = new Dialog(getActivity());
-        ShowPopup(getView());}
+        ShowPopup();
+        //DialogPrioridad myDialogo = new DialogPrioridad(myDialog);
+        //myDialogo.muestraDialog();
+
+        }
     }
 
     @Override
@@ -87,7 +91,7 @@ public class Averias_Principal_Fragment extends Fragment implements AdapterAveri
         String key = averiasKeys.get(position);
         controlador.setAveriaSeleccionada(averia);
         controlador.setKeyAveria(key);
-        Modifica_Borra_averia_Fragment fragment = new Modifica_Borra_averia_Fragment();
+        Averias_Modifica_Borra_Fragment fragment = new Averias_Modifica_Borra_Fragment();
         fragmentManager = getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.contenedor,fragment).addToBackStack("blankfragment").commit();
     }
@@ -117,7 +121,7 @@ public class Averias_Principal_Fragment extends Fragment implements AdapterAveri
 
     public void setTitle(){ getActivity().setTitle("Averias");}
 
-        public void ShowPopup(View v) {
+    public void ShowPopup() {
 
         Button urgente,moderada,media,leve,baja;
         myDialog.setContentView(R.layout.priority_popup);

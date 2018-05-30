@@ -3,7 +3,6 @@ package com.example.power.fixthefault;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,10 +25,9 @@ import Logic.AdapterSpinner;
 import Logic.Averia;
 import Logic.Controlador;
 import Logic.Session;
-import Persistence.Persistencia;
 
 
-public class Modifica_Borra_averia_Fragment extends Fragment {
+public class Averias_Modifica_Borra_Fragment extends Fragment {
     Controlador controlador;
     String key;
     String lugar;
@@ -45,7 +43,7 @@ public class Modifica_Borra_averia_Fragment extends Fragment {
     Spinner spinnerPrioridad;
     Session sesion;
 
-    public Modifica_Borra_averia_Fragment() {
+    public Averias_Modifica_Borra_Fragment() {
     }
 
     @Override
@@ -132,7 +130,7 @@ public class Modifica_Borra_averia_Fragment extends Fragment {
 
         }
     });
-        ((Main2Activity)getActivity()).hideFab();
+        ((Principal_Activity)getActivity()).hideFab();
 
     if(!controlador.getRolUsuario().equals("Admin")){
         btneliminar.setVisibility(view.INVISIBLE);

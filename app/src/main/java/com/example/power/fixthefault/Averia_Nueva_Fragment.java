@@ -1,12 +1,9 @@
 package com.example.power.fixthefault;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import Logic.Averia;
 import Logic.Controlador;
-import Logic.Session;
 
 
 public class Averia_Nueva_Fragment extends Fragment {
@@ -51,7 +44,7 @@ public class Averia_Nueva_Fragment extends Fragment {
                 getFragmentManager().popBackStack();
             }
         });
-        ((Main2Activity)getActivity()).hideFab();
+        ((Principal_Activity)getActivity()).hideFab();
     }
 
     @Override
