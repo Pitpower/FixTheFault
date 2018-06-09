@@ -46,7 +46,9 @@ public class AdapterAverias extends RecyclerView.Adapter<AdapterAverias.Averiasv
         Averia averia = averias.get(position);
         holder.textViewLugar.setText(averia.getUbicacion());
         holder.textViewDescripcion.setText(averia.getDescripcion());
-        holder.btn.setBackgroundColor(getColor(averia.getPrioridad()));
+        // holder.btn.setBackgroundColor(getColor(averia.getPrioridad()));
+        holder.btn.setText(setLetter(averia.getPrioridad()));
+        holder.btn.setBackgroundResource(getColor(averia.getPrioridad()));
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         String fecha = dateFormat.format(averia.getFechaCreacion());
         holder.textViewFecha.setText(fecha);
@@ -54,17 +56,33 @@ public class AdapterAverias extends RecyclerView.Adapter<AdapterAverias.Averiasv
 
     private int getColor(int prioridad){
         if(prioridad == 0)
-            return 0xFF33B5E5;
-            else if(prioridad==1)
-                return 0xFF99CC00;
-                else if(prioridad==2)
-                    return Color.parseColor("#FFFF4D");
-                    else if(prioridad==3)
-                        return 0xFFFFBB33;
-                        else if(prioridad==4)
-                            return 0xFFFF4444;
+            return R.drawable.buttonprioridadbaja;
+        else if(prioridad==1)
+            return R.drawable.buttonprioridadleve;
+        else if(prioridad==2)
+            return R.drawable.buttonprioridadmedia;
+        else if(prioridad==3)
+            return R.drawable.buttonprioridadmoderada;
+        else if(prioridad==4)
+            return R.drawable.buttonprioridadurgente;
          else
-            return Color.parseColor("#cccccc");
+             return R.drawable.buttonprioridninguna;
+            //return Color.parseColor("#cccccc");
+    }
+
+    private String setLetter(int prioridad){
+        if(prioridad == 0)
+            return "B";
+        else if(prioridad==1)
+            return "L";
+        else if(prioridad==2)
+            return "M";
+        else if(prioridad==3)
+            return "M";
+        else if(prioridad==4)
+            return "U";
+        else
+            return "";
     }
 
 
