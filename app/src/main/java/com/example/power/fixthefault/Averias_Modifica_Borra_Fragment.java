@@ -33,11 +33,10 @@ public class Averias_Modifica_Borra_Fragment extends Fragment {
     String lugar;
     String descripcion;
     TextView etiquetaCreador;
-    TextView creadorFijo;
     EditText editableLugar,editableDescripcion;
     Button btnguardar;
     Button btneliminar;
-    Button btnprioridad;
+    TextView tecnicoAsignado;
     Averia averia;
     Spinner spinner;
     Spinner spinnerPrioridad;
@@ -63,6 +62,7 @@ public class Averias_Modifica_Borra_Fragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         getActivity().setTitle("Modificar averia");
         etiquetaCreador = (TextView)getActivity().findViewById(R.id.textView_creador);
+        tecnicoAsignado = (TextView)getActivity().findViewById(R.id.textviewTecnico);
         editableLugar = (EditText)getActivity().findViewById(R.id.editText_fragment_nombre);
         editableDescripcion = (EditText)getActivity().findViewById(R.id.editText_fragment_Descripcion);
         btnguardar = (Button)getActivity().findViewById(R.id.btn_fragment_guardar);
@@ -74,7 +74,9 @@ public class Averias_Modifica_Borra_Fragment extends Fragment {
             spinnerPrioridad.setEnabled(false);}
         spinnerPrioridad.setAdapter(new AdapterSpinner(getActivity()));
 
-
+        if (averia.getTecnico() != null){
+            tecnicoAsignado.setText(averia.getTecnico().getNombre());
+        }
         String[] estados = {"En cola","En ejecución","Pausa","Terminada"};
         if(sesion.getUser().getRol().equals("Empleado")){
             spinner.setEnabled(false);}
@@ -102,6 +104,7 @@ public class Averias_Modifica_Borra_Fragment extends Fragment {
                 lugar = editableLugar.getText().toString();
                 descripcion = editableDescripcion.getText().toString();
                 String estado = (String)spinner.getSelectedItem();
+                if (estado.equals("En ejecución")){averia.setTecnico(controlador.getUsuarioLogeado());}
                 int prioridad = (Integer)spinnerPrioridad.getSelectedItemPosition();
                 averia.setUbicacion(lugar);
                 averia.setDescripcion(descripcion);

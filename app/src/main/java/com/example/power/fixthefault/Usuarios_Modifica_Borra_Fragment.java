@@ -15,10 +15,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import Logic.Controlador;
 import Logic.Usuario;
-import Persistence.Persistencia;
+
 
 
 public class Usuarios_Modifica_Borra_Fragment extends Fragment {
@@ -30,6 +29,7 @@ public class Usuarios_Modifica_Borra_Fragment extends Fragment {
     Usuario usuario;
     Controlador controlador;
 
+
     public Usuarios_Modifica_Borra_Fragment() { }
 
     @Override
@@ -37,7 +37,7 @@ public class Usuarios_Modifica_Borra_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_modifica__borra_usuario, container, false);
     }
-
+    @SuppressWarnings("unchecked")
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         getActivity().setTitle("Modificar usuario");
@@ -54,8 +54,8 @@ public class Usuarios_Modifica_Borra_Fragment extends Fragment {
         email.setText(usuario.getEmail());
         String[] roles = {"Admin","Tecnico","Empleado"};
         spinner.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, roles));
-        String myString = usuario.getRol(); //the value you want the position for
-        ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter(); //cast to an ArrayAdapter
+        String myString = usuario.getRol();
+        ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter();
         int spinnerPosition = myAdap.getPosition(myString);
         spinner.setSelection(spinnerPosition);
         btnguardar.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +66,6 @@ public class Usuarios_Modifica_Borra_Fragment extends Fragment {
                 usuario.setRol((String) spinner.getSelectedItem());
                 controlador.guardaUsuario(usuario);
                 getFragmentManager().popBackStack();
-
             }
         });
 

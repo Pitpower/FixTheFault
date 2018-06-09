@@ -2,6 +2,13 @@ package Logic;
 
 import android.content.Context;
 
+import com.example.power.fixthefault.Averias_Fragment;
+import com.example.power.fixthefault.Averias_NULL_Fragment;
+import com.example.power.fixthefault.Averias_Principal_Fragment;
+import com.example.power.fixthefault.Averias_SinPrioridad_Fragment;
+import com.example.power.fixthefault.Averias_Terminadas_Fragment;
+import com.example.power.fixthefault.Averias_enCurso_Fragment;
+
 import Persistence.Persistencia;
 
 public class Controlador {
@@ -20,10 +27,19 @@ public class Controlador {
     private Controlador() {
         sesion = Session.getInstance();
         persistencia = Persistencia.getInstance();
-
     }
 
-
+    public Averias_Fragment creaFragmento(String tipo){
+        if(tipo.equals("principal"))
+            return new Averias_Principal_Fragment();
+        else if (tipo.equals("sinPrioridad"))
+            return new Averias_SinPrioridad_Fragment();
+        else if (tipo.equals("enCurso"))
+            return new Averias_enCurso_Fragment();
+        else if (tipo.equals("terminadas"))
+            return new Averias_Terminadas_Fragment();
+        else return new Averias_NULL_Fragment();
+    }
     public Usuario getUsuarioLogeado(){
         return sesion.getUser();
     }
@@ -88,4 +104,9 @@ public class Controlador {
     public void creaAuthparaUsers(Context context){
         persistencia.creaAuthparaUsers(context);
     };
+
+    public void setUsuarioSession(Usuario usuario){sesion.setUser(usuario);}
+
+
+
 }
