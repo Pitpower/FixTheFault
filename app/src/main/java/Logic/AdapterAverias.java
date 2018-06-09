@@ -66,7 +66,23 @@ public class AdapterAverias extends RecyclerView.Adapter<AdapterAverias.Averiasv
         else if(prioridad==4)
             return R.drawable.buttonprioridadurgente;
          else
-            return Color.parseColor("#cccccc");
+             return R.drawable.buttonprioridninguna;
+            //return Color.parseColor("#cccccc");
+    }
+
+    private String setLetter(int prioridad){
+        if(prioridad == 0)
+            return "B";
+        else if(prioridad==1)
+            return "L";
+        else if(prioridad==2)
+            return "M";
+        else if(prioridad==3)
+            return "M";
+        else if(prioridad==4)
+            return "U";
+        else
+            return "";
     }
 
     private String setLetter(int prioridad){

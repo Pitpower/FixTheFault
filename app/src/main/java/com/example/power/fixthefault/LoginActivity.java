@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,6 +20,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,6 +33,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import Logic.Controlador;
 import Logic.Session;
 import Logic.Usuario;
 
@@ -47,7 +50,7 @@ public class LoginActivity extends AppCompatActivity  {
     FirebaseAuth.AuthStateListener mAuthListener;
     FirebaseAuth mAuth;
     DatabaseReference myRef;
-    Session sesion;
+    Controlador controlador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +59,8 @@ public class LoginActivity extends AppCompatActivity  {
         // Set up the login form.
         setTitle("Login");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        controlador = Controlador.getInstance();
         myRef = database.getReference("usuarios");
-        sesion=Session.getInstance();
-
         mAuth=FirebaseAuth.getInstance();
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         signinImage = (ImageView) findViewById(R.id.image_signin);
@@ -74,13 +76,6 @@ public class LoginActivity extends AppCompatActivity  {
             }
         });
 
-        /*Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-         });*/
         signinImage.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,7 +86,6 @@ public class LoginActivity extends AppCompatActivity  {
         mProgressView = findViewById(R.id.login_progress);
 
     }
-
 
     private void attemptLogin() {
 
@@ -147,11 +141,11 @@ public class LoginActivity extends AppCompatActivity  {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                         Usuario usuario= (Usuario)dataSnapshot.getValue(Usuario.class);
-                        sesion.setUser(usuario);
+                        controlador.setUsuarioSession(usuario);
                         showProgress(false);
                         Intent intentNueva=new Intent(getApplicationContext(), Principal_Activity.class);
                         startActivity(intentNueva);
-                        // Log.i("Objeto","usuario="+sesion.getUser().getNombre());
+                        finish();
                     }
 
                     @Override
@@ -177,8 +171,10 @@ public class LoginActivity extends AppCompatActivity  {
 
                 ;
             } else {
-                Log.i("SESION","iniciarSesion() FAIL!");
                 showProgress(false);
+                Toast toast1 = Toast.makeText(getApplicationContext(), "Email o contraseña incorrectos", Toast.LENGTH_SHORT);
+                toast1.setGravity(Gravity.CENTER, 0, 0);
+                toast1.show();
             }
         }
     });

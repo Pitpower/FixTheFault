@@ -17,20 +17,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import Logic.Controlador;
 import Logic.Session;
 import Logic.Usuario;
 
 import static java.lang.Thread.sleep;
 
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- */
 public class SplashScreen extends AppCompatActivity {
     FirebaseAuth.AuthStateListener mAuthListener;
     FirebaseAuth mAuth;
     DatabaseReference myRef;
-    Session sesion;
+    Controlador controlador;
     ProgressBar progressbar;
     private static int SPLASH_TIME_OUT = 3000;
     @Override
@@ -40,11 +37,9 @@ public class SplashScreen extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.loader);
-
+        controlador = Controlador.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("usuarios");
-        sesion=Session.getInstance();
-
         mAuth=FirebaseAuth.getInstance();
         new Handler().postDelayed(new Runnable() {
 
@@ -60,7 +55,7 @@ public class SplashScreen extends AppCompatActivity {
                         @Override
                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                             Usuario usuario= (Usuario)dataSnapshot.getValue(Usuario.class);
-                            sesion.setUser(usuario);
+                            controlador.setUsuarioSession(usuario);
                             Intent intentNueva=new Intent(getApplicationContext(), Principal_Activity.class);
                             startActivity(intentNueva);
                             finish();
@@ -95,12 +90,6 @@ public class SplashScreen extends AppCompatActivity {
 
         };
             },SPLASH_TIME_OUT);
-
-
-
-
-
-
 
 
 

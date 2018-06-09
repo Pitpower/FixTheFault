@@ -64,7 +64,7 @@ public class Principal_Activity extends AppCompatActivity
         emailUsuario.setText(sesion.getUser().getEmail());
         estado="En cola";
         hideItem();
-        beginTransaction(new Averias_Principal_Fragment());
+        beginTransaction(controlador.creaFragmento("principal"));
     }
 
     @Override
@@ -83,19 +83,19 @@ public class Principal_Activity extends AppCompatActivity
         int id = item.getItemId();
         if (id == R.id.nav_principal) {
             state=0;
-            beginTransaction(new Averias_Principal_Fragment());
+            beginTransaction(controlador.creaFragmento("principal"));
         } else if (id == R.id.nav_terminadas) {
             state=0;
-            beginTransaction(new Averias_Terminadas_Fragment());
+            beginTransaction(controlador.creaFragmento("terminadas"));
         } else if (id == R.id.nav_curso) {
             state=0;
-            beginTransaction(new Averias_enCurso_Fragment());
+            beginTransaction(controlador.creaFragmento("enCurso"));
         } else if (id == R.id.nav_usuarios) {
             state=1;
             beginTransaction(new Usuarios_Principal_Fragment());
         } else if (id == R.id.nav_recientes) {
             state=0;
-            beginTransaction(new Averias_SinPrioridad_Fragment());
+            beginTransaction(controlador.creaFragmento("sinPrioridad"));
 
         } else if (id == R.id.nav_cerrarSesion) {
             new AlertDialog.Builder(this)

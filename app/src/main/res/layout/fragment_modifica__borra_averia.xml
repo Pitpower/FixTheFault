@@ -67,7 +67,7 @@
         android:inputType="textCapSentences|textMultiLine"
         android:lines="6"
         android:padding="5dp"
-        android:text="gfdg fdsg fdg dfsgdfg fdg fd gfdg fdg sdgfdsg fdsg fds g fdsg sfdg sfdg sfdg f gfds g sfdg fgs dgg dsg fdg  dg"
+        android:text="Vacio"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -134,40 +134,28 @@
         app:layout_constraintStart_toEndOf="@+id/textView_creador"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="66dp"
-        tools:layout_editor_absoluteY="270dp" />
-
     <Spinner
         android:id="@+id/spinnerEstado"
         style="@android:style/Widget.Material.Spinner"
         android:layout_width="170dp"
         android:layout_height="25dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="3dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_fragment_guardar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.148"
         app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/editText_fragment_Descripcion"
-        app:layout_constraintVertical_bias="0.077" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_fragment_Descripcion" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:paddingLeft="20dp"
         android:text="Estado: "
-        app:layout_constraintBottom_toTopOf="@+id/btn_fragment_guardar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_fragment_Descripcion"
-        app:layout_constraintVertical_bias="0.100000024" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_fragment_Descripcion" />
 
     <Spinner
         android:id="@+id/spinnerPrioridad"
@@ -180,5 +168,28 @@
         app:layout_constraintHorizontal_bias="0.301"
         app:layout_constraintStart_toEndOf="@+id/textViewPrioridad"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="10dp"
+        android:text="Técnico asignado: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/textviewTecnico"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Sin técnico"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerEstado" />
 
 </android.support.constraint.ConstraintLayout>
