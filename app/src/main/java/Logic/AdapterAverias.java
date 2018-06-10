@@ -31,7 +31,6 @@ public class AdapterAverias extends RecyclerView.Adapter<AdapterAverias.Averiasv
     public void setOnItemClickListener(OnItemClickListener listener){
         mlistener = listener;
     }
-    public void jajaja(){}
 
     @Override
     public AveriasviewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
@@ -68,21 +67,6 @@ public class AdapterAverias extends RecyclerView.Adapter<AdapterAverias.Averiasv
          else
              return R.drawable.buttonprioridninguna;
             //return Color.parseColor("#cccccc");
-    }
-
-    private String setLetter(int prioridad){
-        if(prioridad == 0)
-            return "B";
-        else if(prioridad==1)
-            return "L";
-        else if(prioridad==2)
-            return "M";
-        else if(prioridad==3)
-            return "M";
-        else if(prioridad==4)
-            return "U";
-        else
-            return "";
     }
 
     private String setLetter(int prioridad){
