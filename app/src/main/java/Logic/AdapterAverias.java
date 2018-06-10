@@ -86,7 +86,6 @@ public class AdapterAverias extends RecyclerView.Adapter<AdapterAverias.Averiasv
     }
 
 
-
     @Override
     public int getItemCount() {
         return averias.size();
