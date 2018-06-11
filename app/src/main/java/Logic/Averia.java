@@ -21,6 +21,7 @@ public class Averia implements Serializable {
         fechaCreacion=new Date();
         prioridad=5;
         estado="En cola";
+
     }
 
     public Averia(){}
@@ -80,4 +81,5 @@ public class Averia implements Serializable {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
 }

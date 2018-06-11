@@ -41,6 +41,7 @@ public class Averias_Modifica_Borra_Fragment extends Fragment {
     Spinner spinner;
     Spinner spinnerPrioridad;
     Session sesion;
+    boolean esEmpleado;
 
     public Averias_Modifica_Borra_Fragment() {
     }
@@ -97,10 +98,18 @@ public class Averias_Modifica_Borra_Fragment extends Fragment {
         editableDescripcion.setText(descripcion);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         etiquetaCreador.setText(averia.getUser().getNombre()+" el "+dateFormat.format(averia.getFechaCreacion()));
+        esEmpleado = false;
+        if(controlador.getUsuarioLogeado().getRol().equals("Empleado")){
+            if(!averia.getUser().getNombre().equals(controlador.getUsuarioLogeado().getNombre())){
+                btnguardar.setText("Volver");
+                esEmpleado = true;
 
+            }
+        }
         btnguardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!esEmpleado){
                 lugar = editableLugar.getText().toString();
                 descripcion = editableDescripcion.getText().toString();
                 String estado = (String)spinner.getSelectedItem();
@@ -110,8 +119,10 @@ public class Averias_Modifica_Borra_Fragment extends Fragment {
                 averia.setDescripcion(descripcion);
                 averia.setEstado(estado);
                 averia.setPrioridad(prioridad);
-                controlador.guardaAveria(averia);
+                controlador.guardaAveria(averia);}
+
                 getFragmentManager().popBackStack();
+
 
             }
         });

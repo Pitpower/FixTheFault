@@ -42,7 +42,8 @@ public class Usuarios_Modifica_Borra_Fragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         getActivity().setTitle("Modificar usuario");
         controlador=Controlador.getInstance();
-        usuario = controlador.getUsuarioSelecionado();
+        Usuario usuarioCopia = controlador.getUsuarioSelecionado();
+        usuario = new Usuario(usuarioCopia.getNombre(),usuarioCopia.getEmail(),usuarioCopia.getRol(),usuarioCopia.getPassword());
         editableNombre = (EditText)getActivity().findViewById(R.id.editText_fragment_nombre);
         editablePassword = (EditText)getActivity().findViewById(R.id.editText_fragment_password);
         btnguardar = (Button)getActivity().findViewById(R.id.btn_fragment_guardar);

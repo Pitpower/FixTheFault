@@ -26,8 +26,7 @@ public class Controlador {
 
     private Controlador() {
         sesion = Session.getInstance();
-        persistencia = Persistencia.getInstance();
-    }
+        persistencia = Persistencia.getInstance(); }
 
     public Averias_Fragment creaFragmento(String tipo){
         if(tipo.equals("principal"))
@@ -56,7 +55,7 @@ public class Controlador {
     }
 
     public void guardaUsuario(Usuario usuario){
-        persistencia.guardaUsuario(keyUsuario, usuario);
+        persistencia.guardaUsuario(keyUsuario, usuario, usuarioSelecionado);
     }
 
     public void eliminarUsuario(){
@@ -75,10 +74,6 @@ public class Controlador {
         this.usuarioSelecionado = usuarioSelecionado;
     }
 
-    public String getKeyUsuario() {
-        return keyUsuario;
-    }
-
     public void setKeyUsuario(String keyUsuario) {
         this.keyUsuario = keyUsuario;
     }
@@ -88,8 +83,7 @@ public class Controlador {
     }
 
     public void setAveriaSeleccionada(Averia averiaSeleccionada) {
-        this.averiaSeleccionada = averiaSeleccionada;
-    }
+        this.averiaSeleccionada = averiaSeleccionada; }
 
     public String getKeyAveria() {
         return keyAveria;
@@ -106,7 +100,5 @@ public class Controlador {
     };
 
     public void setUsuarioSession(Usuario usuario){sesion.setUser(usuario);}
-
-
 
 }

@@ -32,6 +32,7 @@ public class Persistencia {
     private Usuario usuarioModificado;
     private String keyUsuario;
     private String keyAveria;
+    public boolean passwordActualizado;
     FirebaseAuth mAuth;
     //mAuth2 es para hacer gestiones de usuarios sin logear cada vez
     FirebaseAuth mAuth2;
@@ -93,15 +94,11 @@ public class Persistencia {
 
             }
         });
-
-
         return averia;
-
     }
     public void guardaNuevaAveria(Averia averia){
         myRefaverias.push().setValue(averia);
     }
-    public void setAveriaToModificar(Averia averia){ averiaToModificar=averia;}
 
     public void guardaAveriaModificada( Averia averia, String key){
         myRefaverias.child(key).setValue(averia);
@@ -113,8 +110,6 @@ public class Persistencia {
 
     public void registrarUsuario(final Usuario user){
 
-        boolean ok=true;
-
         mAuth2.createUserWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                    @Override
                    public void onComplete(@NonNull Task<AuthResult> task) {
@@ -124,51 +119,40 @@ public class Persistencia {
                        else{
 
                        }
-
-
                    }
                });
-
-
     }
 
-    public void setUsuarioModificado(Usuario usuario){
-           this.usuarioModificado=usuario;
-    }
-
-    public void modificaUsuario(){
-
-        if(!usuario.getNombre().equals(usuarioModificado.getNombre())){ usuario.setNombre(usuarioModificado.getNombre()); }
-
-        if(!usuario.getPassword().equals(usuarioModificado.getPassword())){ cambiaPassword(); }
-
-        if(!usuario.getRol().equals(usuarioModificado.getRol())){ usuario.setRol(usuarioModificado.getRol()); }
-    }
-
-    public void cambiaPassword(){
-
+    public void cambiaPassword(Usuario usuario, final String nuevo_password){
         mAuth2.signInWithEmailAndPassword(usuario.getEmail(),usuario.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                @Override
                public void onComplete(@NonNull Task<AuthResult> task) {
-                   if(task.isSuccessful()){}
+                   if(task.isSuccessful()){
                    FirebaseUser user = mAuth2.getCurrentUser();
-                   user.updatePassword(usuarioModificado.getPassword());
+                   user.updatePassword(nuevo_password);
+                   }
                }
         });
-
     }
 
-    public void guardaUsuario(String key, Usuario usuario){
+    public void guardaUsuario(String key, Usuario usuario, Usuario usuarioSeleccionado){
+        boolean cambios = false;
+
+        if(!usuario.getNombre().equals(usuarioSeleccionado.getNombre())){
+            cambios = true;
+        }
+        if(!usuario.getPassword().equals(usuarioSeleccionado.getPassword())){
+            cambiaPassword(usuarioSeleccionado, usuario.getPassword());
+            cambios = true;
+        }
+        if(!usuario.getRol().equals(usuarioSeleccionado.getRol())){
+            cambios = true;
+        }
+       if(cambios){
         myRefusuarios.child(key).setValue(usuario);
+        }
     }
 
-    public String getKeyUsuario() {
-        return keyUsuario;
-    }
-
-    public void setKeyUsuario(String keyUsuario) {
-        this.keyUsuario = keyUsuario;
-    }
 
     public Usuario getUsuario() {
         return usuario;
@@ -206,4 +190,6 @@ public class Persistencia {
     public Averia getAveria() {
         return averia;
     }
+
+
 }

@@ -51,8 +51,6 @@ public class Usuarios_Principal_Fragment extends Fragment implements AdapterUser
         usuariosKeys = new ArrayList<>();
         FabricaAdaptadores fabrica = new FabricaAdaptadores();
         adaptador = (AdapterUsers) fabrica.crearAdaptador(usuarios);
-
-        //adapter = new AdapterUsers(usuarios);
         rv.setAdapter(adaptador);
         adaptador.setOnItemClickListener(Usuarios_Principal_Fragment.this);
 
